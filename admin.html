@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeb Edits | Admin Control Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #1a1a1a; color: #fff; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #222; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); border-top: 4px solid #f39c12; }
+        h2 { color: #f39c12; margin-bottom: 20px; font-size: 22px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #ddd; font-size: 14px; }
+        input, textarea { width: 100%; padding: 10px; background: #333; border: 1px solid #444; color: #fff; border-radius: 5px; font-size: 14px; }
+        input[type="file"] { padding: 8px; cursor: pointer; }
+        .btn { background: #f39c12; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 15px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: #e67e22; }
+        .btn-danger { background: #e74c3c; padding: 5px 10px; font-size: 12px; }
+        .btn-danger:hover { background: #c0392b; }
+        .items-list { margin-top: 30px; border-top: 1px solid #444; padding-top: 20px; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; background: #333; padding: 10px 15px; margin-bottom: 10px; border-radius: 5px; }
+        .item-info { display: flex; align-items: center; gap: 15px; }
+        .item-info img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logout-btn { background: #e74c3c; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-size: 14px; }
+        .current-logo-preview { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #f39c12; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="top-bar">
+            <h2><i class="fa-solid fa-gauge"></i> Admin Dashboard</h2>
+            <a href="index.html" class="logout-btn"><i class="fa-solid fa-arrow-left"></i> View Website</a>
+        </div>
+
+        <!-- Header Logo Change Section -->
+        <div class="form-group" style="background: #2a2a2a; padding: 15px; border-radius: 8px;">
+            <label><strong>Change Website Header Logo (Zeb Graphics):</strong></label>
+            <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
+                <img id="admin-logo-preview" class="current-logo-preview" src="" alt="Logo">
+                <div>
+                    <input type="file" id="header-logo-file" accept="image/*" style="margin-bottom: 8px;">
+                    <button class="btn" onclick="updateHeaderLogo()" style="padding: 6px 15px; font-size: 13px;">Update Logo</button>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #444; margin: 25px 0;">
+
+        <div class="form-group">
+            <label>WhatsApp Number for Orders (e.g., 923001234567):</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="whatsapp-num" placeholder="Enter WhatsApp number">
+                <button class="btn" onclick="saveWhatsApp()">Save</button>
+            </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #444; margin: 25px 0;">
+
+        <h2><i class="fa-solid fa-cloud-arrow-up"></i> Upload Design / Logo to Gallery</h2>
+        <div class="form-group">
+            <label>Design / Logo Title:</label>
+            <input type="text" id="img-title" placeholder="e.g., Modern Business Logo">
+        </div>
+        <div class="form-group">
+            <label>Select Image from Device:</label>
+            <input type="file" id="img-file" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label>Short Description:</label>
+            <input type="text" id="img-desc" placeholder="e.g., Elegant vector logo for brand">
+        </div>
+        <button class="btn" onclick="uploadGalleryItem()">Upload Design</button>
+
+        <div class="items-list">
+            <h2>Manage Gallery Items</h2>
+            <div id="admin-gallery-list"></div>
+        </div>
+    </div>
+
+    <script>
+        if(localStorage.getItem('isAdminLoggedIn') !== 'true') {
+            window.location.href = "admin-login.html";
+        }
+
+        window.onload = function() {
+            let savedNum = localStorage.getItem('whatsappNum');
+            if(savedNum) {
+                document.getElementById('whatsapp-num').value = savedNum;
+            }
+            
+            // Load current logo preview
+            let savedLogo = localStorage.getItem('zebHeaderLogo');
+            let logoImg = document.getElementById('admin-logo-preview');
+            if(savedLogo) {
+                logoImg.src = savedLogo;
+            } else {
+                logoImg.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80";
+            }
+
+            loadAdminGallery();
+        }
+
+        function updateHeaderLogo() {
+            let fileInput = document.getElementById('header-logo-file');
+            if(fileInput.files.length === 0) {
+                alert("Please select a logo image first.");
+                return;
+            }
+
+            let file = fileInput.files[0];
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('zebHeaderLogo', e.target.result);
+                document.getElementById('admin-logo-preview').src = e.target.result;
+                alert("Header logo updated successfully!");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveWhatsApp() {
+            let num = document.getElementById('whatsapp-num').value.trim();
+            localStorage.setItem('whatsappNum', num);
+            alert("WhatsApp number saved successfully!");
+        }
+
+        function uploadGalleryItem() {
+            let title = document.getElementById('img-title').value.title || document.getElementById('img-title').value.trim();
+            let fileInput = document.getElementById('img-file');
+            let desc = document.getElementById('img-desc').value.trim();
+
+            if(!title || fileInput.files.length === 0) {
+                alert("Please provide a title and select an image file.");
+                return;
+            }
+
+            let file = fileInput.files[0];
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                let base64Image = e.target.result;
+                let gallery = JSON.parse(localStorage.getItem('siteGallery')) || [];
+                gallery.push({ title: title, img: base64Image, desc: desc });
+                localStorage.setItem('siteGallery', JSON.stringify(gallery));
+
+                document.getElementById('img-title').value = "";
+                document.getElementById('img-file').value = "";
+                document.getElementById('img-desc').value = "";
+                loadAdminGallery();
+                alert("Design uploaded successfully!");
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function loadAdminGallery() {
+            let listDiv = document.getElementById('admin-gallery-list');
+            let gallery = JSON.parse(localStorage.getItem('siteGallery')) || [];
+            
+            listDiv.innerHTML = "";
+            if(gallery.length === 0) {
+                listDiv.innerHTML = "<p style='color: #aaa;'>No designs uploaded yet.</p>";
+                return;
+            }
+
+            gallery.forEach((item, index) => {
+                let row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <div class="item-info">
+                        <img src="${item.img}" alt="">
+                        <div>
+                            <strong>${item.title}</strong>
+                            <p style='font-size: 12px; color: #aaa;'>${item.desc || ''}</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i> Delete</button>
+                `;
+                listDiv.appendChild(row);
+            });
+        }
+
+        function deleteItem(index) {
+            let gallery = JSON.parse(localStorage.getItem('siteGallery')) || [];
+            gallery.splice(index, 1);
+            localStorage.setItem('siteGallery', JSON.stringify(gallery));
+            loadAdminGallery();
+        }
+    </script>
+</body>
+</html>

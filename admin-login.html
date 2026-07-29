@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeb Edits | Admin Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #1a1a1a; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .login-card { background: #222; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); width: 100%; max-width: 400px; border-top: 4px solid #f39c12; text-align: center; }
+        h2 { margin-bottom: 25px; color: #f39c12; font-size: 24px; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; color: #ddd; font-size: 14px; }
+        input { width: 100%; padding: 12px; background: #333; border: 1px solid #444; color: #fff; border-radius: 5px; font-size: 15px; }
+        .btn { background: #f39c12; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: #e67e22; }
+        .back-link { display: inline-block; margin-top: 20px; color: #aaa; text-decoration: none; font-size: 14px; }
+        .back-link:hover { color: #fff; }
+        .error-msg { color: #e74c3c; margin-bottom: 15px; font-size: 14px; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2><i class="fa-solid fa-lock"></i> Admin Portal Login</h2>
+        <div id="error" class="error-msg">Incorrect Password! Try again.</div>
+        
+        <div class="form-group">
+            <label for="admin-pass">Enter Admin Password:</label>
+            <input type="password" id="admin-pass" placeholder="Enter password">
+        </div>
+        
+        <button class="btn" onclick="checkAdminLogin()">Login</button>
+        <br>
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <script>
+        function checkAdminLogin() {
+            let pass = document.getElementById('admin-pass').value;
+            let correctPassword = "admin123"; // آپ یہاں اپنا پاس ورڈ تبدیل کر سکتے ہیں
+
+            if(pass === correctPassword) {
+                localStorage.setItem('isAdminLoggedIn', 'true');
+                window.location.href = "admin.html";
+            } else {
+                document.getElementById('error').style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
