@@ -32,8 +32,8 @@
         header h1 { font-size: 20px; letter-spacing: 1px; color: #f39c12; }
         
         nav { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-        nav a, nav button { color: #fff; text-decoration: none; font-size: 14px; transition: 0.3s; padding: 6px 12px; border-radius: 4px; background: transparent; border: none; cursor: pointer; }
-        nav a:hover, nav button:hover { color: #f39c12; }
+        nav a { color: #fff; text-decoration: none; font-size: 14px; transition: 0.3s; padding: 6px 10px; border-radius: 4px; }
+        nav a:hover { color: #f39c12; }
         .user-auth-links { background: #27ae60; color: white !important; }
         .admin-btn-link { background: #f39c12; color: white !important; }
 
@@ -67,39 +67,6 @@
         .download-btn { background: #3498db; color: white; }
         .download-btn:hover { background: #2980b9; }
 
-        /* Modal Styles */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;
-        }
-        .modal-content {
-            background: white; padding: 30px; border-radius: 8px; width: 100%; max-width: 400px;
-            position: relative; box-shadow: 0 5px 20px rgba(0,0,0,0.2); text-align: left;
-        }
-        .modal-content h3 { margin-bottom: 20px; color: #111; font-size: 22px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #444; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
-        .modal-btn { width: 100%; background: #25d366; color: white; padding: 10px; border: none; border-radius: 4px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .modal-btn:hover { background: #20ba5a; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 20px; cursor: pointer; color: #888; }
-        .close-modal:hover { color: #111; }
-
-        /* WhatsApp Style Profile Dashboard */
-        .whatsapp-profile-wrap { max-width: 650px; margin: 40px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.08); text-align: left; border-top: 5px solid #25d366; }
-        .wa-profile-header { background: #075e54; color: white; padding: 25px; display: flex; align-items: center; gap: 20px; }
-        .wa-avatar-box { width: 85px; height: 85px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: bold; color: white; border: 3px solid #fff; }
-        .wa-user-details h3 { font-size: 22px; margin-bottom: 4px; }
-        .wa-user-details p { font-size: 14px; opacity: 0.9; }
-        .wa-profile-body { padding: 30px; }
-        .wa-info-card { background: #f0f2f5; padding: 15px 20px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .wa-info-card label { font-size: 12px; color: #555; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 3px; }
-        .wa-info-card span { font-size: 15px; color: #111; font-weight: 500; }
-        .edit-profile-btn { background: #25d366; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        .edit-profile-btn:hover { background: #20ba5a; }
-        .wa-logout-btn { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-left: 10px; }
-        .wa-logout-btn:hover { background: #c0392b; }
-
         .whatsapp-float { position: fixed; width: 55px; height: 55px; bottom: 25px; right: 25px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 26px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; cursor: pointer; }
         .whatsapp-float:hover { background-color: #20ba5a; transform: scale(1.05); }
         
@@ -109,7 +76,6 @@
             header { flex-direction: column; text-align: center; padding: 15px; }
             nav { justify-content: center; gap: 8px; }
             .hero h2 { font-size: 28px; }
-            .wa-profile-header { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -133,93 +99,41 @@
             <a href="#home">Home</a>
             <a href="#services">Services</a>
             <a href="#gallery">Gallery</a>
-            <span id="auth-nav-item">
-                <button onclick="openWaLoginModal()" class="user-auth-links action-btn" style="display:inline-flex; width:auto;"><i class="fa-brands fa-whatsapp"></i> WhatsApp Login</button>
-            </span>
+            <a href="user-login.html" class="user-auth-links"><i class="fa-solid fa-user"></i> Login</a>
             <a href="admin-login.html" class="admin-btn-link"><i class="fa-solid fa-lock"></i> Admin</a>
         </nav>
     </header>
 
-    <!-- Main Dynamic Container for Home or WhatsApp Profile View -->
-    <div id="main-view-container">
-        <section id="home" class="hero">
-            <h2 id="hero-title">Creative Graphic Design Solutions</h2>
-            <p id="hero-desc">Transforming your brand vision into stunning visual masterpieces. Specializing in logos, branding, posters, and digital media editing.</p>
-            <a href="#gallery" class="btn">View Our Work</a>
-        </section>
+    <section id="home" class="hero">
+        <h2 id="hero-title">Creative Graphic Design Solutions</h2>
+        <p id="hero-desc">Transforming your brand vision into stunning visual masterpieces. Specializing in logos, branding, posters, and digital media editing.</p>
+        <a href="#gallery" class="btn">View Our Work</a>
+    </section>
 
-        <section id="services" class="section">
-            <h3>Our Services</h3>
-            <p class="section-subtitle">What we offer for your business growth</p>
-            <div class="services-grid">
-                <div class="card">
-                    <h4>Logo & Branding</h4>
-                    <p>Unique, modern, and memorable logo designs that establish a strong brand identity for your business.</p>
-                </div>
-                <div class="card">
-                    <h4>Poster & Print Design</h4>
-                    <p>Eye-catching promotional posters, flyers, business cards, and book covers tailored to your market.</p>
-                </div>
-                <div class="card">
-                    <h4>Video & Media Editing</h4>
-                    <p>Professional video editing, lyric video layouts, and visual optimizations to boost your online engagement.</p>
-                </div>
+    <section id="services" class="section">
+        <h3>Our Services</h3>
+        <p class="section-subtitle">What we offer for your business growth</p>
+        <div class="services-grid">
+            <div class="card">
+                <h4>Logo & Branding</h4>
+                <p>Unique, modern, and memorable logo designs that establish a strong brand identity for your business.</p>
             </div>
-        </section>
-
-        <section id="gallery" class="section">
-            <h3>Featured Gallery & Logos</h3>
-            <p class="section-subtitle">Order via WhatsApp or download designs directly!</p>
-            <div id="gallery-grid" class="gallery-grid"></div>
-        </section>
-    </div>
-
-    <!-- WhatsApp Style Login / Profile Setup Modal -->
-    <div id="wa-login-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeWaModal()">&times;</span>
-            <h3 style="color: #075e54;"><i class="fa-brands fa-whatsapp"></i> WhatsApp Profile Login</h3>
-            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Apna WhatsApp number aur Name enter karke apni profile banayein.</p>
-            <form id="wa-login-form" onsubmit="handleWaLogin(event)">
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" id="wa-input-name" required placeholder="e.g. Mubeen Zeb">
-                </div>
-                <div class="form-group">
-                    <label>WhatsApp Number</label>
-                    <input type="text" id="wa-input-phone" required placeholder="e.g. 923275652796">
-                </div>
-                <div class="form-group">
-                    <label>About / Bio (Status)</label>
-                    <input type="text" id="wa-input-about" placeholder="Available / Busy / Graphic Designer">
-                </div>
-                <button type="submit" class="modal-btn">Create / Open Profile</button>
-            </form>
+            <div class="card">
+                <h4>Poster & Print Design</h4>
+                <p>Eye-catching promotional posters, flyers, business cards, and book covers tailored to your market.</p>
+            </div>
+            <div class="card">
+                <h4>Video & Media Editing</h4>
+                <p>Professional video editing, lyric video layouts, and visual optimizations to boost your online engagement.</p>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Edit Profile Modal -->
-    <div id="wa-edit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeWaEditModal()">&times;</span>
-            <h3 style="color: #075e54;"><i class="fa-solid fa-pen"></i> Edit Profile</h3>
-            <form id="wa-edit-form" onsubmit="handleWaEdit(event)">
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" id="wa-edit-name" required>
-                </div>
-                <div class="form-group">
-                    <label>WhatsApp Number</label>
-                    <input type="text" id="wa-edit-phone" required>
-                </div>
-                <div class="form-group">
-                    <label>About / Bio (Status)</label>
-                    <input type="text" id="wa-edit-about">
-                </div>
-                <button type="submit" class="modal-btn">Save Changes</button>
-            </form>
-        </div>
-    </div>
+    <section id="gallery" class="section">
+        <h3>Featured Gallery & Logos</h3>
+        <p class="section-subtitle">Order via WhatsApp or download designs directly!</p>
+        <div id="gallery-grid" class="gallery-grid"></div>
+    </section>
 
     <div id="whatsapp-btn" class="whatsapp-float" onclick="openWhatsApp()" title="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
@@ -259,107 +173,58 @@
                 }
             }, 15);
 
-            checkWaAuthStatus();
             loadGallery();
         });
 
-        function checkWaAuthStatus() {
-            let currentWaUser = localStorage.getItem('zebWaUser');
-            let authNavItem = document.getElementById('auth-nav-item');
-
-            if(currentWaUser) {
-                authNavItem.innerHTML = `<button onclick="showWaProfile()" class="user-auth-links action-btn" style="display:inline-flex; width:auto;"><i class="fa-brands fa-whatsapp"></i> My Profile</button>`;
+        function loadGallery() {
+            let galleryGrid = document.getElementById('gallery-grid');
+            let savedGallery = localStorage.getItem('siteGallery');
+            let items = [];
+            
+            if(savedGallery) {
+                items = JSON.parse(savedGallery);
             } else {
-                authNavItem.innerHTML = `<button onclick="openWaLoginModal()" class="user-auth-links action-btn" style="display:inline-flex; width:auto;"><i class="fa-brands fa-whatsapp"></i> WhatsApp Login</button>`;
+                items = [
+                    { title: "Brand Identity Logo", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80", desc: "Custom modern vector logo design." },
+                    { title: "Promotional Poster", img: "https://images.unsplash.com/photo-1542744094-3a31243364d0?auto=format&fit=crop&w=600&q=80", desc: "High-impact commercial print flyer." },
+                    { title: "Book Cover Design", img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "Educational publication layout cover." }
+                ];
+                localStorage.setItem('siteGallery', JSON.stringify(items));
             }
-        }
 
-        function openWaLoginModal() {
-            document.getElementById('wa-login-modal').style.display = 'flex';
-        }
-
-        function closeWaModal() {
-            document.getElementById('wa-login-modal').style.display = 'none';
-        }
-
-        function closeWaEditModal() {
-            document.getElementById('wa-edit-modal').style.display = 'none';
-        }
-
-        function handleWaLogin(e) {
-            e.preventDefault();
-            let name = document.getElementById('wa-input-name').value;
-            let phone = document.getElementById('wa-input-phone').value;
-            let about = document.getElementById('wa-input-about').value || "Hey there! I am using Zeb Graphics.";
-
-            let waUser = { name, phone, about };
-            localStorage.setItem('zebWaUser', JSON.stringify(waUser));
-
-            alert('WhatsApp profile created successfully!');
-            closeWaModal();
-            checkWaAuthStatus();
-            showWaProfile();
-        }
-
-        function showWaProfile() {
-            let currentWaUser = localStorage.getItem('zebWaUser');
-            if(!currentWaUser) {
-                openWaLoginModal();
-                return;
-            }
-            let user = JSON.parse(currentWaUser);
-            let mainContainer = document.getElementById('main-view-container');
-            mainContainer.innerHTML = `
-                <div class="whatsapp-profile-wrap">
-                    <div class="wa-profile-header">
-                        <div class="wa-avatar-box">
-                            ${user.name.charAt(0).toUpperCase()}
-                        </div>
-                        <div class="wa-user-details">
-                            <h3>${user.name}</h3>
-                            <p><i class="fa-solid fa-phone"></i> +${user.phone}</p>
+            galleryGrid.innerHTML = "";
+            items.forEach((item, index) => {
+                let card = document.createElement('div');
+                card.className = 'gallery-card';
+                card.innerHTML = `
+                    <img src="${item.img}" alt="${item.title}">
+                    <div class="gallery-card-content">
+                        <h4>${item.title}</h4>
+                        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">${item.desc || ''}</p>
+                        <div class="card-buttons">
+                            <button class="action-btn order-btn" onclick="orderDesign('${item.title}')"><i class="fa-brands fa-whatsapp"></i> Order</button>
+                            <a href="${item.img}" download="${item.title || 'design'}.jpg" target="_blank" class="action-btn download-btn"><i class="fa-solid fa-download"></i> Download</a>
                         </div>
                     </div>
-                    <div class="wa-profile-body">
-                        <div class="wa-info-card">
-                            <div>
-                                <label>About / Status</label>
-                                <span>${user.about}</span>
-                            </div>
-                            <i class="fa-solid fa-info-circle" style="color: #075e54; font-size: 20px;"></i>
-                        </div>
-                        <div class="wa-info-card">
-                            <div>
-                                <label>Profile Status</label>
-                                <span style="color: #25d366; font-weight: bold;"><i class="fa-solid fa-circle-check"></i> Active & Connected</span>
-                            </div>
-                        </div>
-                        <div style="margin-top: 25px; display: flex; align-items: center;">
-                            <button class="edit-profile-btn" onclick="openWaEditModalValues()"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
-                            <button class="wa-logout-btn" onclick="handleWaLogout()"><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+                `;
+                galleryGrid.appendChild(card);
+            });
         }
 
-        function openWaEditModalValues() {
-            let currentWaUser = JSON.parse(localStorage.getItem('zebWaUser'));
-            document.getElementById('wa-edit-name').value = currentWaUser.name;
-            document.getElementById('wa-edit-phone').value = currentWaUser.phone;
-            document.getElementById('wa-edit-about').value = currentWaUser.about;
-            document.getElementById('wa-edit-modal').style.display = 'flex';
+        function orderDesign(designTitle) {
+            let num = localStorage.getItem('whatsappNum') || "923001234567";
+            num = num.replace(/[^0-9]/g, '');
+            let message = `Hi, I like this design ("${designTitle}") from your website and want to order it.`;
+            let url = `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
         }
 
-        function handleWaEdit(e) {
-            e.preventDefault();
-            let name = document.getElementById('wa-edit-name').value;
-            let phone = document.getElementById('wa-edit-phone').value;
-            let about = document.getElementById('wa-edit-about').value;
-
-            let updatedUser = { name, phone, about };
-            localStorage.setItem('zebWaUser', JSON.stringify(updatedUser));
-            alert('Profile updated successfully!');
-            closeWaEditModal();
-            showWaPr
+        function openWhatsApp() {
+            let num = localStorage.getItem('whatsappNum') || "923001234567";
+            num = num.replace(/[^0-9]/g, '');
+            let url = "https://wa.me/" + num + "?text=Hi,%20I%20want%20to%20discuss%20a%20graphic%20design%20project.";
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
