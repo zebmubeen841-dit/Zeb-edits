@@ -3,86 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeb Edits | User Signup</title>
+    <title>Zeb Graphics | User Signup</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #1a1a1a; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .auth-card { background: #222; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); width: 100%; max-width: 400px; border-top: 4px solid #27ae60; text-align: center; }
-        h2 { margin-bottom: 25px; color: #27ae60; font-size: 24px; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        label { display: block; margin-bottom: 6px; color: #ddd; font-size: 14px; }
+        body { background-color: #1a1a1a; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .container { width: 100%; max-width: 400px; background: #222; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); border-top: 4px solid #27ae60; }
+        h2 { color: #f39c12; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #ddd; font-size: 14px; }
         input { width: 100%; padding: 10px; background: #333; border: 1px solid #444; color: #fff; border-radius: 5px; font-size: 14px; }
-        .btn { background: #27ae60; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn { width: 100%; background: #27ae60; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; font-weight: bold; margin-top: 10px; }
         .btn:hover { background: #219653; }
-        .switch-link { display: inline-block; margin-top: 15px; color: #aaa; text-decoration: none; font-size: 14px; }
-        .switch-link:hover { color: #fff; }
-        .msg { margin-bottom: 15px; font-size: 14px; display: none; }
-        .error { color: #e74c3c; }
-        .success { color: #27ae60; }
+        .switch-link { text-align: center; margin-top: 15px; font-size: 14px; color: #aaa; }
+        .switch-link a { color: #f39c12; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div class="auth-card">
+    <div class="container">
         <h2><i class="fa-solid fa-user-plus"></i> Create Account</h2>
-        <div id="msg" class="msg"></div>
-        
         <div class="form-group">
-            <label for="signup-name">Full Name:</label>
-            <input type="text" id="signup-name" placeholder="Enter your name">
+            <label>Full Name:</label>
+            <input type="text" id="signup-name" placeholder="e.g., Mubeen Zeb">
         </div>
         <div class="form-group">
-            <label for="signup-email">Email Address:</label>
-            <input type="email" id="signup-email" placeholder="Enter your email">
+            <label>Username:</label>
+            <input type="text" id="signup-username" placeholder="e.g., mubeenzeb">
         </div>
         <div class="form-group">
-            <label for="signup-pass">Password:</label>
-            <input type="password" id="signup-pass" placeholder="Create password">
+            <label>Nickname:</label>
+            <input type="text" id="signup-nickname" placeholder="e.g., Mubi">
         </div>
-        
-        <button class="btn" onclick="signupUser()">Sign Up</button>
-        <br>
-        <a href="user-login.html" class="switch-link">Already have an account? Login</a>
-        <br>
-        <a href="index.html" class="switch-link" style="color: #f39c12;"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" id="signup-pass" placeholder="Enter password">
+        </div>
+        <button class="btn" onclick="registerUser()">Sign Up</button>
+        <div class="switch-link">
+            Already have an account? <a href="user-login.html">Login here</a>
+        </div>
     </div>
 
     <script>
-        function signupUser() {
+        function registerUser() {
             let name = document.getElementById('signup-name').value.trim();
-            let email = document.getElementById('signup-email.value') ? document.getElementById('signup-email').value.trim() : document.getElementById('signup-email').value.trim();
+            let username = document.getElementById('signup-username').value.trim().toLowerCase();
+            let nickname = document.getElementById('signup-nickname').value.trim();
             let pass = document.getElementById('signup-pass').value.trim();
-            let msgBox = document.getElementById('msg');
 
-            if(!name || !email || !pass) {
-                msgBox.innerText = "Please fill in all fields.";
-                msgBox.className = "msg error";
-                msgBox.style.display = "block";
+            if(!name || !username || !pass) {
+                alert("Please fill in all required fields (Name, Username, Password).");
                 return;
             }
 
             let users = JSON.parse(localStorage.getItem('siteUsers')) || [];
             
-            // Check if email already exists
-            let existing = users.find(u => u.email === email);
+            // چیک کریں کہ یوزر نیم پہلے سے موجود تو نہیں
+            let existing = users.find(u => u.username === username);
             if(existing) {
-                msgBox.innerText = "Email already registered. Please login.";
-                msgBox.className = "msg error";
-                msgBox.style.display = "block";
+                alert("This username is already taken. Choose another one.");
                 return;
             }
 
-            users.push({ name: name, email: email, pass: pass });
+            let newUser = { name: name, username: username, nickname: nickname, password: pass, dp: "" };
+            users.push(newUser);
             localStorage.setItem('siteUsers', JSON.stringify(users));
+            localStorage.setItem('currentLoggedInUser', JSON.stringify(newUser));
 
-            msgBox.innerText = "Account created successfully! Redirecting to login...";
-            msgBox.className = "msg success";
-            msgBox.style.display = "block";
-
-            setTimeout(() => {
-                window.location.href = "user-login.html";
-            }, 1200);
+            alert("Account created successfully!");
+            window.location.href = "profile.html";
         }
     </script>
 </body>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeb Graphics | User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #1a1a1a; color: #fff; padding: 20px; }
+        .container { max-width: 600px; margin: 30px auto; background: #222; padding: 30px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.6); border-top: 4px solid #27ae60; text-align: center; }
+        
+        .profile-dp-container { position: relative; width: 120px; height: 120px; margin: 0 auto 20px auto; }
+        .profile-dp { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #f39c12; background: #333; }
+        .dp-upload-btn { position: absolute; bottom: 0; right: 0; background: #f39c12; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #222; font-size: 14px; transition: 0.3s; }
+        .dp-upload-btn:hover { background: #e67e22; }
+        #dp-file-input { display: none; }
+
+        h2 { color: #f39c12; margin-bottom: 5px; font-size: 24px; }
+        .username-tag { color: #aaa; font-size: 14px; margin-bottom: 25px; }
+
+        .info-card { background: #2a2a2a; padding: 15px 20px; border-radius: 8px; margin-bottom: 15px; text-align: left; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
+        .info-label { color: #888; font-size: 13px; text-transform: uppercase; font-weight: bold; }
+        .info-value { color: #fff; font-size: 16px; font-weight: 500; }
+        
+        .btn-group { display: flex; gap: 10px; margin-top: 25px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-home { background: #3498db; color: white; }
+        .btn-home:hover { background: #2980b9; }
+        .btn-logout { background: #e74c3c; color: white; }
+        .btn-logout:hover { background: #c0392b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Profile Picture DP -->
+        <div class="profile-dp-container">
+            <img id="profile-img-tag" class="profile-dp" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Profile DP">
+            <label for="dp-file-input" class="dp-upload-btn" title="Change Profile Photo"><i class="fa-solid fa-camera"></i></label>
+            <input type="file" id="dp-file-input" accept="image/*" onchange="updateProfileDP(event)">
+        </div>
+
+        <h2 id="display-name">User Name</h2>
+        <div class="username-tag" id="display-username">@username</div>
+
+        <div class="info-card">
+            <div>
+                <div class="info-label">Full Name</div>
+                <div class="info-value" id="val-name">-</div>
+            </div>
+            <i class="fa-solid fa-user" style="color: #f39c12;"></i>
+        </div>
+
+        <div class="info-card">
+            <div>
+                <div class="info-label">Username</div>
+                <div class="info-value" id="val-username">-</div>
+            </div>
+            <i class="fa-solid fa-at" style="color: #f39c12;"></i>
+        </div>
+
+        <div class="info-card">
+            <div>
+                <div class="info-label">Nickname</div>
+                <div class="info-value" id="val-nickname">-</div>
+            </div>
+            <i class="fa-solid fa-face-smile" style="color: #f39c12;"></i>
+        </div>
+
+        <div class="btn-group">
+            <a href="index.html" class="btn btn-home"><i class="fa-solid fa-house"></i> Home Page</a>
+            <button class="btn btn-logout" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // چیک کریں کہ کوئی یوزر لاگ ان ہے یا نہیں
+        let loggedInUser = JSON.parse(localStorage.getItem('currentLoggedInUser'));
+        if(!loggedInUser) {
+            alert("Please login first to view your profile!");
+            window.location.href = "user-login.html";
+        }
+
+        window.onload = function() {
+            loadProfileData();
+        }
+
+        function loadProfileData() {
+            document.getElementById('display-name').innerText = loggedInUser.name || "Zeb User";
+            document.getElementById('display-username').innerText = "@" + (loggedInUser.username || "zebuser");
+            document.getElementById('val-name').innerText = loggedInUser.name || "-";
+            document.getElementById('val-username').innerText = "@" + (loggedInUser.username || "-");
+            document.getElementById('val-nickname').innerText = loggedInUser.nickname || "Not Set";
+
+            // اگر پہلے سے ڈی پی سیو ہے
+            if(loggedInUser.dp) {
+                document.getElementById('profile-img-tag').src = loggedInUser.dp;
+            }
+        }
+
+        // واٹس ایپ یا فیس بک کی طرح ڈی پی اپ ڈیٹ کرنے کا فنکشن
+        function updateProfileDP(event) {
+            let file = event.target.files[0];
+            if(file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let base64Image = e.target.result;
+                    document.getElementById('profile-img-tag').src = base64Image;
+                    
+                    // لوکل اسسٹوری میں محفوظ کرنا
+                    loggedInUser.dp = base64Image;
+                    localStorage.setItem('currentLoggedInUser', JSON.stringify(loggedInUser));
+
+                    // اگر تمام یوزرز کی لسٹ میں بھی سیو ہو تو وہاں بھی اپ ڈیٹ کر دیں
+                    let allUsers = JSON.parse(localStorage.getItem('siteUsers')) || [];
+                    allUsers = allUsers.map(u => {
+                        if(u.username === loggedInUser.username) {
+                            u.dp = base64Image;
+                        }
+                        return u;
+                    });
+                    localStorage.setItem('siteUsers', JSON.stringify(allUsers));
+
+                    alert("Profile picture updated successfully!");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('currentLoggedInUser');
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
