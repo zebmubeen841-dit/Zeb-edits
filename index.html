@@ -212,7 +212,7 @@
         }
 
         function orderDesign(designTitle) {
-            let num = localStorage.getItem('whatsappNum') || "923001234567";
+            let num = localStorage.getItem('whatsappNum') || "923275652796";
             num = num.replace(/[^0-9]/g, '');
             let message = `Hi, I like this design ("${designTitle}") from your website and want to order it.`;
             let url = `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
@@ -220,7 +220,7 @@
         }
 
         function openWhatsApp() {
-            let num = localStorage.getItem('whatsappNum') || "923001234567";
+            let num = localStorage.getItem('whatsappNum') || "923275652796";
             num = num.replace(/[^0-9]/g, '');
             let url = "https://wa.me/" + num + "?text=Hi,%20I%20want%20to%20discuss%20a%20graphic%20design%20project.";
             window.open(url, '_blank');
