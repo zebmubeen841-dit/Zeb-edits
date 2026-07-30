@@ -22,9 +22,9 @@
     </header>
 
     <!-- Login Form Section -->
-    <div id="loginSection" class="admin-container" style="padding: 140px 8% 50px; display: flex; justify-content: center;">
+    <div id="loginSection" class="admin-container" style="padding: 160px 8% 80px; display: flex; justify-content: center;">
         <div class="contact-form" style="width: 100%; max-width: 400px;">
-            <div class="section-title" style="margin-bottom: 30px;">
+            <div class="section-title" style="margin-bottom: 25px;">
                 <h2>Admin Login</h2>
                 <p>Enter password to access panel</p>
             </div>
@@ -35,8 +35,8 @@
         </div>
     </div>
 
-    <!-- Upload Dashboard (Hidden until login) -->
-    <div id="dashboardSection" class="admin-container" style="padding: 140px 8% 50px; display: none;">
+    <!-- Upload Dashboard Section -->
+    <div id="dashboardSection" class="admin-container" style="padding: 160px 8% 80px; display: none;">
         <div class="section-title">
             <h2>Admin Control Panel</h2>
             <p>Upload new gallery designs or manage content.</p>
@@ -57,62 +57,6 @@
         <p>&copy; 2026 Zeb Graphics Admin Panel.</p>
     </footer>
 
-    <script>
-        const loginSection = document.getElementById('loginSection');
-        const dashboardSection = document.getElementById('dashboardSection');
-        const loginForm = document.getElementById('loginForm');
-        const logoutBtn = document.getElementById('logoutBtn');
-
-        // Check if already logged in
-        if (localStorage.getItem('isAdminLoggedIn') === 'true') {
-            loginSection.style.display = 'none';
-            dashboardSection.style.display = 'block';
-        }
-
-        // Login Handler (Default Password: admin123)
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const pass = document.getElementById('adminPassword').value;
-            if (pass === 'admin123') {
-                localStorage.setItem('isAdminLoggedIn', 'true');
-                loginSection.style.display = 'none';
-                dashboardSection.style.display = 'block';
-            } else {
-                alert('Wrong Password! Try "admin123"');
-            }
-        });
-
-        // Logout Handler
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('isAdminLoggedIn');
-            dashboardSection.style.display = 'none';
-            loginSection.style.display = 'flex';
-        });
-
-        // Upload Handler
-        const uploadForm = document.getElementById('uploadForm');
-        if (uploadForm) {
-            uploadForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const title = document.getElementById('imgTitle').value;
-                const category = document.getElementById('imgCategory').value;
-                const fileInput = document.getElementById('imageFile');
-
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const imageData = event.target.result;
-                    let galleryItems = JSON.parse(localStorage.getItem('zebGallery')) || [];
-                    galleryItems.push({ title, category, image: imageData });
-                    localStorage.setItem('zebGallery', JSON.stringify(galleryItems));
-
-                    alert('Photo successfully uploaded!');
-                    uploadForm.reset();
-                };
-                if (fileInput.files[0]) {
-                    reader.readAsDataURL(fileInput.files[0]);
-                }
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
