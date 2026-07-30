@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeb Graphics | Luxury Digital & Design Studio</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <!-- Luxury Percentage Loading Screen -->
     <div id="pageLoader" class="loader-overlay">
         <div class="loader-content">
@@ -28,7 +26,6 @@
                 <text x="54" y="23" fill="#f4f4f4" font-family="'Playfair Display', serif" font-weight="700" font-size="16" letter-spacing="1">ZEB</text>
                 <text x="54" y="38" fill="url(#goldGradientLoader)" font-family="'Poppins', sans-serif" font-weight="300" font-size="10" letter-spacing="3">GRAPHICS</text>
             </svg>
-            
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -43,23 +40,17 @@
         </div>
         <nav>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#hero">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#portfolio">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="login.html" class="client-login-link"><i class="fa-solid fa-user"></i> Login</a></li>
-                <li><a href="admin.html" class="admin-btn-link"><i class="fa-solid fa-lock"></i> Admin</a></li>
+                <li><a href="admin.html" class="admin-btn-link"><i class="fa-solid fa-lock"></i> Admin Login</a></li>
             </ul>
         </nav>
         <div class="menu-toggle" id="mobile-menu">
             <i class="fa-solid fa-bars"></i>
         </div>
     </header>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/923275652796?text=Hello%20Zeb%20Graphics,%20I%20want%20to%20discuss%20a%20project." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
 
     <!-- Hero Section -->
     <section id="hero" class="hero">
@@ -83,33 +74,28 @@
             <div class="service-card">
                 <i class="fa-solid fa-pen-nib"></i>
                 <h3>Logo & Brand Identity</h3>
-                <p>Distinctive, high-end visual branding that makes your business unforgettable.</p>
+                <p>Distinctive visual branding that makes your business unforgettable.</p>
             </div>
             <div class="service-card">
                 <i class="fa-solid fa-camera-retro"></i>
                 <h3>Professional Photo Editing</h3>
-                <p>Advanced retouching, color grading, and visual optimization for all media platforms.</p>
+                <p>Advanced retouching, color grading, and visual optimization.</p>
             </div>
             <div class="service-card">
                 <i class="fa-solid fa-book-open"></i>
                 <h3>Book & Notes Design</h3>
                 <p>Professional cover design, layout formatting, and publishing preparation.</p>
             </div>
-            <div class="service-card">
-                <i class="fa-solid fa-video"></i>
-                <h3>Video Editing & Ads</h3>
-                <p>Cinematic promotional videos, social media reels, and dynamic lyric video edits.</p>
-            </div>
         </div>
     </section>
 
-    <!-- Gallery / Portfolio Section -->
+    <!-- Gallery Section -->
     <section id="portfolio" class="portfolio">
         <div class="section-title">
             <h2>Creative Gallery</h2>
-            <p>Explore our latest design works.</p>
+            <p>Our latest design works.</p>
         </div>
-        <div class="portfolio-grid">
+        <div class="portfolio-grid" id="publicGallery">
             <div class="portfolio-item" style="background-image: url('https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80');">
                 <div class="portfolio-overlay">
                     <h3>Luxury Branding</h3>
@@ -119,51 +105,11 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="section-title">
-            <h2>Start Your Project</h2>
-            <p>Let's create something extraordinary together.</p>
-        </div>
-        <div class="contact-wrapper">
-            <div class="contact-info">
-                <div class="info-item">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <div>
-                        <h4>Location</h4>
-                        <p>Mardan Road, Swabi, Pakistan</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fa-solid fa-phone"></i>
-                    <div>
-                        <h4>Phone / WhatsApp</h4>
-                        <p>+92 [03275652796]</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <div>
-                        <h4>Email</h4>
-                        <p>contact@zebgraphics.com</p>
-                    </div>
-                </div>
-            </div>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea rows="5" placeholder="Project Details" required></textarea>
-                <button type="submit" class="btn btn-gold">Send Message</button>
-            </form>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Zeb Graphics. All Rights Reserved.</p>
     </footer>
 
-    <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
 </html>
