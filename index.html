@@ -3,125 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeb Graphics | Luxury Digital & Design Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Zeb Graphics - Ultimate Studio</title>
+    <!-- Linked External CSS -->
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Luxury Percentage Loading Screen -->
-    <div id="pageLoader" class="loader-overlay">
-        <div class="loader-content">
-            <svg class="loader-logo-svg" viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="goldGradientLoader" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#f3e5ab" />
-                        <stop offset="50%" stop-color="#d4af37" />
-                        <stop offset="100%" stop-color="#aa7c11" />
-                    </linearGradient>
-                </defs>
-                <polygon points="5,5 45,5 25,45" fill="none" stroke="url(#goldGradientLoader)" stroke-width="2"/>
-                <text x="14" y="31" fill="url(#goldGradientLoader)" font-family="'Playfair Display', serif" font-weight="700" font-size="20">Z</text>
-                <text x="54" y="23" fill="#f4f4f4" font-family="'Playfair Display', serif" font-weight="700" font-size="16" letter-spacing="1">ZEB</text>
-                <text x="54" y="38" fill="url(#goldGradientLoader)" font-family="'Poppins', sans-serif" font-weight="300" font-size="10" letter-spacing="3">GRAPHICS</text>
-            </svg>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="percentage-text" id="percentageText">0%</div>
+    <!-- Modern Glassmorphism Preloader -->
+    <div id="preloader">
+        <div class="loader-box">
+            <div class="loader-logo">ZEB STUDIO</div>
+            <div class="spinner-ring"></div>
+            <div class="loader-counter" id="loaderCount">0%</div>
         </div>
     </div>
 
-    <!-- Header / Navbar -->
-    <header id="navbar">
-        <div class="logo-container">
-            <a href="index.html" class="custom-text-logo">ZEB <span>GRAPHICS</span></a>
-        </div>
-        <nav>
-          <div class="social-buttons" style="display: flex; gap: 15px; align-items: center; margin-top: 15px;">
-    <!-- WhatsApp Button -->
-    <a href="https://wa.me/923275652796" target="_blank" class="btn-social whatsapp-btn" title="Chat on WhatsApp" style="color: #25d366; font-size: 1.3rem; transition: transform 0.3s;">
-        <i class="fa-brands fa-whatsapp"></i>
+    <!-- Fullscreen Image Preview Modal -->
+    <div id="imgModal" onclick="closeModal()">
+        <img id="modalImg" src="" alt="Full View">
+        <button onclick="closeModal()">Close Preview</button>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/923000000000?text=Hello%20Zeb%20Graphics,%20I%20want%20to%20discuss%20about%20your%20services!" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+        💬
     </a>
-    
-    <!-- TikTok Button -->
-    <a href="https://www.tiktok.com/@YOUR_USERNAME" target="_blank" class="btn-social tiktok-btn" title="Follow on TikTok" style="color: #f8f8f8; font-size: 1.2rem; transition: transform 0.3s;">
-        <i class="fa-brands fa-tiktok"></i>
-    </a>
-</div>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Gallery</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="admin.html" class="admin-btn-link"><i class="fa-solid fa-lock"></i> Admin Login</a></li>
-            </ul>
-        </nav>
-        <div class="menu-toggle" id="mobile-menu">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-    </header>
+    <!-- Main Workspace -->
+    <div id="workspace">
+        <header class="top-nav">
+            <h2>ZEB GRAPHICS</h2>
+            <div class="nav-pills">
+                <span onclick="switchTab('services')">Services</span>
+                <span onclick="switchTab('admin')">Admin Panel</span>
+            </div>
+        </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-content">
-            <h1>Elevate Your Brand with <span class="gold-text">Luxury Design</span></h1>
-            <p>Professional photo editing, custom logo design, book layout, and digital media creations crafted to perfection.</p>
-            <div class="hero-btns">
-                <a href="#portfolio" class="btn btn-gold">Explore Gallery</a>
-                <a href="#contact" class="btn btn-outline">Get in Touch</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="section-title">
-            <h2>Our Exclusive Services</h2>
-            <p>Tailored digital solutions delivered with unmatched precision.</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fa-solid fa-pen-nib"></i>
-                <h3>Logo & Brand Identity</h3>
-                <p>Distinctive visual branding that makes your business unforgettable.</p>
-            </div>
-            <div class="service-card">
-                <i class="fa-solid fa-camera-retro"></i>
-                <h3>Professional Photo Editing</h3>
-                <p>Advanced retouching, color grading, and visual optimization.</p>
-            </div>
-            <div class="service-card">
-                <i class="fa-solid fa-book-open"></i>
-                <h3>Book & Notes Design</h3>
-                <p>Professional cover design, layout formatting, and publishing preparation.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="portfolio" class="portfolio">
-        <div class="section-title">
-            <h2>Creative Gallery</h2>
-            <p>Our latest design works.</p>
-        </div>
-        <div class="portfolio-grid" id="publicGallery">
-            <div class="portfolio-item" style="background-image: url('https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80');">
-                <div class="portfolio-overlay">
-                    <h3>Luxury Branding</h3>
-                    <p>Identity Design</p>
+        <main class="content-container">
+            <!-- Services View -->
+            <section id="services-view" class="view-section active">
+                <div class="hero-banner">
+                    <h3>Creative Digital Hub</h3>
+                    <p>Swabi, Mardan Road, Kaludher</p>
                 </div>
-            </div>
-        </div>
-    </section>
+                <div class="cards-deck" id="cardsDeck">
+                    <!-- Dynamic cards will load here -->
+                </div>
+            </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Zeb Graphics. All Rights Reserved.</p>
-    </footer>
+            <!-- Admin View (Protected with Login) -->
+            <section id="admin-view" class="view-section">
+                
+                <!-- 1. Login Form (Shown when NOT logged in) -->
+                <div id="loginCard" class="admin-card">
+                    <h3>Admin Login</h3>
+                    <p>Enter credentials to access manager</p>
+                    <div class="admin-form" style="margin-top: 15px;">
+                        <input type="text" id="loginUser" placeholder="Username (e.g. admin)">
+                        <input type="password" id="loginPass" placeholder="Password (e.g. zeb123)">
+                        <button class="neon-btn" type="button" onclick="handleLogin()" style="margin-top: 10px;">Login to Panel</button>
+                    </div>
+                </div>
 
-    <script src="script.js"></script>
+                <!-- 2. Actual Admin Panel Dashboard (Shown AFTER successful login) -->
+                <div id="dashboardCard" class="admin-card" style="display: none;">
+                    
+                    <!-- Status Indicator -->
+                    <div class="admin-status-bar">
+                        <span style="color: #00ffcc; font-weight: bold;">🟢 Status: Logged In as Admin</span>
+                        <button onclick="handleLogout()" style="background: #ff3366; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 10px;">Logout</button>
+                    </div>
+
+                    <h3 id="formHeading">Add New Service</h3>
+                    <p>Upload, edit, download & manage items</p>
+                    
+                    <!-- Hidden Index for Editing -->
+                    <input type="hidden" id="editIndex" value="-1">
+
+                    <div class="admin-form">
+                        <input type="text" id="serviceTitle" placeholder="Service Title (e.g. Video Editing)">
+                        <input type="text" id="serviceDesc" placeholder="Short Description">
+                        
+                        <!-- File Upload from Phone Storage -->
+                        <div class="file-upload-box">
+                            <label for="imageFile">Select Photo from Phone:</label>
+                            <input type="file" id="imageFile" accept="image/*">
+                        </div>
+
+                        <button class="neon-btn" type="button" id="saveBtn" onclick="saveOrUpdateService()" style="margin-top: 15px;">+ Save Service</button>
+                    </div>
+
+                    <!-- Manage Existing List with Open/Download/Edit/Delete Options -->
+                    <div class="manage-list-box" style="margin-top: 20px;">
+                        <h4 style="font-size: 12px; color: #00ffcc; margin-bottom: 8px;">Existing Services Manager</h4>
+                        <div id="adminServiceList" style="display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto;">
+                            <!-- Items populated via JS -->
+                        </div>
+                    </div>
+
+                    <div class="action-grid" style="margin-top: 15px;">
+                        <button class="neon-btn danger" type="button" onclick="clearAllServices()">Clear All</button>
+                        <button class="neon-btn" type="button" onclick="cycleTheme()">Switch Theme</button>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Preloader Logic
+        let val = 0;
+        const countText = document.getElementById('loaderCount');
+        const preloader = document.getElementById('preloader');
+        const workspace = document.getElementById('workspace');
+
+        let loadInterval = setInterval(() => {
+            val += 25;
+            countText.innerText = val + '%';
+            if(val >= 100) {
+                clearInterval(loadInterval);
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    workspace.style.opacity = '1';
+                }, 400);
+            }
+        }, 20);
+
+        // Check Login Session on Load
+        function checkLoginState() {
+            let isLoggedIn = sessionStorage.getItem('zeb_admin_logged');
+            let loginCard = document.getElementById('loginCard');
+            let dashboardCard = document.getElementById('dashboardCard');
+
+            if(isLoggedIn === 'true') {
+                loginCard.style.display = 'none';
+                dashboardCard.style.display = 'block';
+            } else {
+                loginCard.style.display = 'block';
+                dashboardCard.style.display = 'none';
+            }
+        }
+
+        // Login Handler
+        function handleLogin() {
+            let u = document.getElementById('loginUser').value.trim();
+            let p = document.getElementById('loginPass').value.trim();
+
+            if(u === 'admin' && p === 'zeb123') {
+                sessionStorage.setItem('zeb_admin_logged', 'true');
+                document.getElementById('loginUser').value = '';
+                document.getElementById('loginPass').value = '';
+                checkLoginState();
+                alert('Successfully Logged In as Admin!');
+            } else {
+                alert('Invalid Username or Password!');
+            }
+        }
+
+        // Logout Handler
+        function handleLogout() {
+            sessionStorage.removeItem('zeb_admin_logged');
+            checkLoginState();
+            alert('Logged out successfully.');
+        }
+
+        // Tab Switcher Function
+        function switchTab(tabName) {
+            const sView = document.getElementById('services-view');
+            const aView = document.getElementById('admin-view');
+            if(tabName === 'services') {
+                sView.classList.add('active');
+                aView.classList.remove('active');
+            } else {
+                aView.classList.add('active');
+                sView.classList.remove('active');
+                checkLoginState();
+            }
+        }
+
+        // Default Services Data
+        let defaultServices = [
+            { title: "Logo & Branding", desc: "Luxury posters & brand identities.", img: "" },
+            { title: "Editing & CapCut", desc: "Pro visual effects & lyric edits.", img: "" },
+            { title: "Electronics & UPS", desc: "Specialized appliance & UPS repair.", img: "" }
+        ];
+
+        // Load Services Function
+        function loadServices() {
+            try {
+                let saved = localStorage.getItem('zeb_services');
+                let services = saved ? JSON.parse(saved) : defaultServices;
+                
+                const deck = document.getElementById('cardsDeck');
+                deck.innerHTML = '';
+                services.forEach((item) => {
+                    const div = document.createElement('div');
+                    div.className = 'glass-card';
+                    let imgHtml = item.img ? `<img src="${item.img}" class="card-img" alt="Service Image" onclick="openModal('${item.img}')" title="Click to Open/View">` : '';
+                    div.innerHTML = `${imgHtml}<h4>${item.title}</h4><p>${item.desc}</p>`;
+                    deck.appendChild(div);
+                });
+
+                const adminList = document.getElementById('adminServiceList');
+                adminList.innerHTML = '';
+                services.forEach((item, index) => {
+                    const row = document.createElement('div');
+                    row.style.cssText = "display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 6px 10px; border-radius: 4px; font-size: 11px;";
+                    
+                    let downloadBtn = item.img ? `<button onclick="downloadServiceImage(${index})" style="background: #3399ff; color: #fff; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; font-size: 9px; margin-right: 3px;">Down</button>` : '';
+
+                    row.innerHTML = `
+                        <span style="color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 140px;">${item.title}</span>
+                        <div>
+                            ${downloadBtn}
+                            <button onclick="editService(${index})" style="background: #00ffcc; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; font-size: 9px; margin-right: 3px; font-weight: bold;">Edit</button>
+                            <button onclick="deleteService(${index})" style="background: #ff3366; color: #fff; border: none; padding: 3px 6px; border-radius: 3px; cursor: pointer; font-size: 9px;">Del</button>
+                        </div>
+                    `;
+                    adminList.appendChild(row);
+                });
+
+            } catch(err) {
+                console.error("Storage load error:", err);
+            }
+        }
+
+        // Open Image Modal Viewer
+        function openModal(imgSrc) {
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('imgModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imgModal').style.display = 'none';
+        }
+
+        // Download Single Service Image
+        function downloadServiceImage(index) {
+            let saved = localStorage.getItem('zeb_services');
+            let services = saved ? JSON.parse(saved) : defaultServices;
+            let item = services[index];
+            if(item && item.img) {
+                let link = document.createElement('a');
+                link.href = item.img;
+                link.download = (item.title || 'service') + '_zeb.jpg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Save or Update Service Item
+        function saveOrUpdateService() {
+            let titleInput = document.getElementById('serviceTitle');
+            let descInput = document.getElementById('serviceDesc');
+            let imageInput = document.getElementById('imageFile');
+            let editIndex = document.getElementById('editIndex').value;
+            
+            if(!titleInput.value.trim()) {
+                alert('Please enter a service title!');
+                return;
+            }
+
+            let title = titleInput.value;
+            let desc = descInput.value || 'Professional studio service.';
+
+            let saved = localStorage.getItem('zeb_services');
+            let services = saved ? JSON.parse(saved) : defaultServices;
+
+            if(imageInput.files && imageInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let img = new Image();
+                    img.onload = function() {
+                        let canvas = document.createElement('canvas');
+                        let MAX_DIM = 800;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_DIM) { height *= MAX_DIM / width; width = MAX_DIM; }
+                        } else {
+                            if (height > MAX_DIM) { width *= MAX_DIM / height; height = MAX_DIM; }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        let ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        let compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                        processSave(services, title, desc, compressedDataUrl, editIndex);
+                    }
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                let existingImg = "";
+                if(editIndex !== "-1") {
+                    existingImg = services[editIndex].img || "";
+                }
+                processSave(services, title, desc, existingImg, editIndex);
+            }
+        }
+
+        function processSave(services, title, desc, img, editIndex) {
+            if(editIndex === "-1") {
+                services.push({ title: title, desc: desc, img: img });
+            } else {
+                services[editIndex] = { title: title, desc: desc, img: img };
+                document.getElementById('editIndex').value = "-1";
+                document.getElementById('formHeading').innerText = "Add New Service";
+                document.getElementById('saveBtn').innerText = "+ Save Service";
+            }
+
+            try {
+                localStorage.setItem('zeb_services', JSON.stringify(services));
+                document.getElementById('serviceTitle').value = '';
+                document.getElementById('serviceDesc').value = '';
+                document.getElementById('imageFile').value = '';
+                loadServices();
+                switchTab('services');
+            } catch(e) {
+                alert('Storage is full!');
+            }
+        }
+
+        // Edit Service Setup
+        function editService(index) {
+            let saved = localStorage.getItem('zeb_services');
+            let services = saved ? JSON.parse(saved) : defaultServices;
+            let item = services[index];
+
+            document.getElementById('serviceTitle').value = item.title;
+            document.getElementById('serviceDesc').value = item.desc;
+            document.getElementById('editIndex').value = index;
+            document.getElementById('formHeading').innerText = "Edit Service #" + (index + 1);
+            document.getElementById('saveBtn').innerText = "Update Service";
+            
+            switchTab('admin');
+        }
+
+        // Delete Single Service
+        function deleteService(index) {
+            let saved = localStorage.getItem('zeb_services');
+            let services = saved ? JSON.parse(saved) : defaultServices;
+            
+            services.splice(index, 1);
+            localStorage.setItem('zeb_services', JSON.stringify(services));
+            loadServices();
+        }
+
+        // Clear All Services Function
+        function clearAllServices() {
+            if(confirm('Are you sure you want to clear all services?')) {
+                localStorage.removeItem('zeb_services');
+                loadServices();
+            }
+        }
+
+        // Theme Switcher Function
+        const themes = ['#08080a', '#050f14', '#14050a'];
+        let tIdx = 0;
+        function cycleTheme() {
+            tIdx = (tIdx + 1) % themes.length;
+            document.body.style.backgroundColor = themes[tIdx];
+        }
+
+        // Run immediately when script loads
+        loadServices();
+        checkLoginState();
+    </script>
 </body>
 </html>
