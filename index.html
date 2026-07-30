@@ -3,228 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeb Graphics & Design | Professional Graphic Design</title>
+    <title>Zeb Graphics | Luxury Digital & Design Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f9f9f9; color: #333; line-height: 1.6; }
-
-        /* Loading Screen Styles */
-        #loader-wrapper {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #111; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 9999; color: #fff;
-            transition: opacity 0.5s ease;
-        }
-        .loader-logo { font-size: 32px; font-weight: bold; color: #f39c12; margin-bottom: 20px; letter-spacing: 2px; }
-        .progress-bar-container { width: 280px; height: 10px; background: #333; border-radius: 5px; overflow: hidden; margin-bottom: 15px; }
-        #progress-bar { width: 0%; height: 100%; background: #27ae60; transition: width 0.1s linear; }
-        #progress-text { font-size: 18px; font-weight: 600; color: #fff; }
-
-        /* Main Website Styles */
-        header { 
-            background: #111; color: #fff; padding: 12px 25px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            flex-wrap: wrap; gap: 15px; border-bottom: 3px solid #f39c12;
-        }
-        .brand-logo-container { display: flex; align-items: center; gap: 12px; }
-        .brand-logo-container img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #f39c12; }
-        header h1 { font-size: 20px; letter-spacing: 1px; color: #f39c12; }
-        
-        nav { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
-        nav a { color: #fff; text-decoration: none; font-size: 14px; transition: 0.3s; padding: 6px 10px; border-radius: 4px; }
-        nav a:hover { color: #f39c12; }
-        .user-auth-links { background: #27ae60; color: white !important; }
-        .admin-btn-link { background: #f39c12; color: white !important; }
-
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover; 
-            color: white; text-align: center; padding: 100px 20px; 
-        }
-        .hero h2 { font-size: 36px; margin-bottom: 20px; }
-        .hero p { font-size: 16px; max-width: 600px; margin: 0 auto 30px auto; }
-        .btn { background: #f39c12; color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; text-decoration: none; transition: 0.3s; display: inline-block; }
-        .btn:hover { background: #e67e22; }
-        
-        .section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; text-align: center; }
-        .section h3 { font-size: 28px; margin-bottom: 10px; }
-        .section-subtitle { color: #666; margin-bottom: 40px; font-size: 15px; }
-        
-        .services-grid, .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card, .gallery-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: left; }
-        .card { padding: 25px; }
-        .card h4, .gallery-card-content h4 { margin-bottom: 8px; color: #222; font-size: 18px; }
-        
-        .gallery-card { transition: transform 0.3s, box-shadow 0.3s; border: 2px solid transparent; }
-        .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); border-color: #f39c12; }
-        .gallery-card img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
-        .gallery-card-content { padding: 15px; }
-        
-        .card-buttons { display: flex; gap: 10px; margin-top: 15px; }
-        .action-btn { flex: 1; padding: 8px 10px; border: none; border-radius: 5px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 5px; transition: 0.3s; }
-        .order-btn { background: #25d366; color: white; }
-        .order-btn:hover { background: #20ba5a; }
-        .download-btn { background: #3498db; color: white; }
-        .download-btn:hover { background: #2980b9; }
-
-        .whatsapp-float { position: fixed; width: 55px; height: 55px; bottom: 25px; right: 25px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 26px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; cursor: pointer; }
-        .whatsapp-float:hover { background-color: #20ba5a; transform: scale(1.05); }
-        
-        footer { background: #111; color: white; text-align: center; padding: 25px; }
-
-        @media(max-width: 768px) {
-            header { flex-direction: column; text-align: center; padding: 15px; }
-            nav { justify-content: center; gap: 8px; }
-            .hero h2 { font-size: 28px; }
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- 100% Loading Screen -->
-    <div id="loader-wrapper">
-        <div class="loader-logo">ZEB GRAPHICS</div>
-        <div class="progress-bar-container">
-            <div id="progress-bar"></div>
+    <!-- Luxury Percentage Loading Screen -->
+    <div id="pageLoader" class="loader-overlay">
+        <div class="loader-content">
+            <svg class="loader-logo-svg" viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="goldGradientLoader" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#f3e5ab" />
+                        <stop offset="50%" stop-color="#d4af37" />
+                        <stop offset="100%" stop-color="#aa7c11" />
+                    </linearGradient>
+                </defs>
+                <polygon points="5,5 45,5 25,45" fill="none" stroke="url(#goldGradientLoader)" stroke-width="2"/>
+                <text x="14" y="31" fill="url(#goldGradientLoader)" font-family="'Playfair Display', serif" font-weight="700" font-size="20">Z</text>
+                <text x="54" y="23" fill="#f4f4f4" font-family="'Playfair Display', serif" font-weight="700" font-size="16" letter-spacing="1">ZEB</text>
+                <text x="54" y="38" fill="url(#goldGradientLoader)" font-family="'Poppins', sans-serif" font-weight="300" font-size="10" letter-spacing="3">GRAPHICS</text>
+            </svg>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="percentage-text" id="percentageText">0%</div>
         </div>
-        <div id="progress-text">0%</div>
     </div>
 
-    <header>
-        <div class="brand-logo-container">
-            <img id="header-logo-img" src="" alt="Zeb Graphics Logo">
-            <h1>ZEB GRAPHICS</h1>
+    <!-- Header / Navbar -->
+    <header id="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="custom-text-logo">ZEB <span>GRAPHICS</span></a>
         </div>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="user-login.html" class="user-auth-links"><i class="fa-solid fa-user"></i> Login</a>
-            <a href="admin-login.html" class="admin-btn-link"><i class="fa-solid fa-lock"></i> Admin</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="login.html" class="client-login-link"><i class="fa-solid fa-user"></i> Login</a></li>
+                <li><a href="admin.html" class="admin-btn-link"><i class="fa-solid fa-lock"></i> Admin</a></li>
+            </ul>
         </nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
     </header>
 
-    <section id="home" class="hero">
-        <h2 id="hero-title">Creative Graphic Design Solutions</h2>
-        <p id="hero-desc">Transforming your brand vision into stunning visual masterpieces. Specializing in logos, branding, posters, and digital media editing.</p>
-        <a href="#gallery" class="btn">View Our Work</a>
-    </section>
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/923275652796?text=Hello%20Zeb%20Graphics,%20I%20want%20to%20discuss%20a%20project." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
-    <section id="services" class="section">
-        <h3>Our Services</h3>
-        <p class="section-subtitle">What we offer for your business growth</p>
-        <div class="services-grid">
-            <div class="card">
-                <h4>Logo & Branding</h4>
-                <p>Unique, modern, and memorable logo designs that establish a strong brand identity for your business.</p>
-            </div>
-            <div class="card">
-                <h4>Poster & Print Design</h4>
-                <p>Eye-catching promotional posters, flyers, business cards, and book covers tailored to your market.</p>
-            </div>
-            <div class="card">
-                <h4>Video & Media Editing</h4>
-                <p>Professional video editing, lyric video layouts, and visual optimizations to boost your online engagement.</p>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Elevate Your Brand with <span class="gold-text">Luxury Design</span></h1>
+            <p>Professional photo editing, custom logo design, book layout, and digital media creations crafted to perfection.</p>
+            <div class="hero-btns">
+                <a href="#portfolio" class="btn btn-gold">Explore Gallery</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
             </div>
         </div>
     </section>
 
-    <section id="gallery" class="section">
-        <h3>Featured Gallery & Logos</h3>
-        <p class="section-subtitle">Order via WhatsApp or download designs directly!</p>
-        <div id="gallery-grid" class="gallery-grid"></div>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="section-title">
+            <h2>Our Exclusive Services</h2>
+            <p>Tailored digital solutions delivered with unmatched precision.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-pen-nib"></i>
+                <h3>Logo & Brand Identity</h3>
+                <p>Distinctive, high-end visual branding that makes your business unforgettable.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-camera-retro"></i>
+                <h3>Professional Photo Editing</h3>
+                <p>Advanced retouching, color grading, and visual optimization for all media platforms.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-book-open"></i>
+                <h3>Book & Notes Design</h3>
+                <p>Professional cover design, layout formatting, and publishing preparation.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-video"></i>
+                <h3>Video Editing & Ads</h3>
+                <p>Cinematic promotional videos, social media reels, and dynamic lyric video edits.</p>
+            </div>
+        </div>
     </section>
 
-    <div id="whatsapp-btn" class="whatsapp-float" onclick="openWhatsApp()" title="Chat on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </div>
+    <!-- Gallery / Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="section-title">
+            <h2>Creative Gallery</h2>
+            <p>Explore our latest design works.</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item" style="background-image: url('https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&w=800&q=80');">
+                <div class="portfolio-overlay">
+                    <h3>Luxury Branding</h3>
+                    <p>Identity Design</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-title">
+            <h2>Start Your Project</h2>
+            <p>Let's create something extraordinary together.</p>
+        </div>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Mardan Road, Swabi, Pakistan</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h4>Phone / WhatsApp</h4>
+                        <p>+92 [03275652796]</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>contact@zebgraphics.com</p>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Project Details" required></textarea>
+                <button type="submit" class="btn btn-gold">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Zeb Graphics & Design. All Rights Reserved.</p>
+        <p>&copy; 2026 Zeb Graphics. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            let savedLogo = localStorage.getItem('zebHeaderLogo');
-            let logoTag = document.getElementById('header-logo-img');
-            if(savedLogo) {
-                logoTag.src = savedLogo;
-            } else {
-                logoTag.src = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80";
-            }
-
-            // 100% Loading Logic
-            let width = 0;
-            let progressBar = document.getElementById('progress-bar');
-            let progressText = document.getElementById('progress-text');
-            let loaderWrapper = document.getElementById('loader-wrapper');
-
-            let interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    loaderWrapper.style.opacity = '0';
-                    setTimeout(() => {
-                        loaderWrapper.style.display = 'none';
-                    }, 500);
-                } else {
-                    width++;
-                    progressBar.style.width = width + '%';
-                    progressText.innerText = width + '%';
-                }
-            }, 15);
-
-            loadGallery();
-        });
-
-        function loadGallery() {
-            let galleryGrid = document.getElementById('gallery-grid');
-            let savedGallery = localStorage.getItem('siteGallery');
-            let items = [];
-            
-            if(savedGallery) {
-                items = JSON.parse(savedGallery);
-            } else {
-                items = [
-                    { title: "Brand Identity Logo", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80", desc: "Custom modern vector logo design." },
-                    { title: "Promotional Poster", img: "https://images.unsplash.com/photo-1542744094-3a31243364d0?auto=format&fit=crop&w=600&q=80", desc: "High-impact commercial print flyer." },
-                    { title: "Book Cover Design", img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "Educational publication layout cover." }
-                ];
-                localStorage.setItem('siteGallery', JSON.stringify(items));
-            }
-
-            galleryGrid.innerHTML = "";
-            items.forEach((item, index) => {
-                let card = document.createElement('div');
-                card.className = 'gallery-card';
-                card.innerHTML = `
-                    <img src="${item.img}" alt="${item.title}">
-                    <div class="gallery-card-content">
-                        <h4>${item.title}</h4>
-                        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">${item.desc || ''}</p>
-                        <div class="card-buttons">
-                            <button class="action-btn order-btn" onclick="orderDesign('${item.title}')"><i class="fa-brands fa-whatsapp"></i> Order</button>
-                            <a href="${item.img}" download="${item.title || 'design'}.jpg" target="_blank" class="action-btn download-btn"><i class="fa-solid fa-download"></i> Download</a>
-                        </div>
-                    </div>
-                `;
-                galleryGrid.appendChild(card);
-            });
-        }
-
-        function orderDesign(designTitle) {
-            let num = localStorage.getItem('whatsappNum') || "923001234567";
-            num = num.replace(/[^0-9]/g, '');
-            let message = `Hi, I like this design ("${designTitle}") from your website and want to order it.`;
-            let url = `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
-        }
-
-        function openWhatsApp() {
-            let num = localStorage.getItem('whatsappNum') || "923001234567";
-            num = num.replace(/[^0-9]/g, '');
-            let url = "https://wa.me/" + num + "?text=Hi,%20I%20want%20to%20discuss%20a%20graphic%20design%20project.";
-            window.open(url, '_blank');
-        }
-    </script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
 </body>
 </html>

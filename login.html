@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Portal | Zeb Graphics</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px;
+            background: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.95)), url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80') center/cover;
+        }
+        .auth-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .auth-box h2 {
+            color: var(--text-main);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .auth-box p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-main);
+        }
+        .form-group input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .auth-switch a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .error-alert {
+            background: rgba(255, 77, 77, 0.1);
+            border: 1px solid #ff4d4d;
+            color: #ff4d4d;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: none;
+            text-align: center;
+        }
+        .success-alert {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid #25d366;
+            color: #25d366;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header id="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="custom-text-logo">ZEB <span>GRAPHICS</span></a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div id="loginSection">
+                <h2>Customer Login</h2>
+                <p class="subtitle">Access your account and track project requests.</p>
+                <div class="error-alert" id="loginError">Invalid email or password!</div>
+                <form id="customerLoginForm">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-gold" style="width: 100%;">Login</button>
+                </form>
+                <div class="auth-switch">
+                    Don't have an account? <a href="#" id="showRegister">Sign Up</a>
+                </div>
+            </div>
+
+            <div id="registerSection" style="display: none;">
+                <h2>Create Account</h2>
+                <p class="subtitle">Join Zeb Graphics to get started.</p>
+                <div class="error-alert" id="regError">Email already registered!</div>
+                <div class="success-alert" id="regSuccess">Account created successfully! Please login.</div>
+                <form id="customerRegisterForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="regEmail" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-gold" style="width: 100%;">Register</button>
+                </form>
+                <div class="auth-switch">
+                    Already have an account? <a href="#" id="showLogin">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between Login & Register forms
+        const loginSec = document.getElementById('loginSection');
+        const regSec = document.getElementById('registerSection');
+        document.getElementById('showRegister').addEventListener('click', (e) => {
+            e.preventDefault();
+            loginSec.style.display = 'none';
+            regSec.style.display = 'block';
+        });
+        document.getElementById('showLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            regSec.style.display = 'none';
+            loginSec.style.display = 'block';
+        });
+
+        // Customer Registration Logic
+        document.getElementById('customerRegisterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+            let customers = JSON.parse(localStorage.getItem('zebCustomers')) || [];
+            
+            // Check if email exists
+            const existing = customers.find(c => c.email === email);
+            if (existing) {
+                document.getElementById('regError').style.display = 'block';
+                return;
+            }
+
+            customers.push({ name, email, password, date });
+            localStorage.setItem('zebCustomers', JSON.stringify(customers));
+
+            document.getElementById('regError').style.display = 'none';
+            document.getElementById('regSuccess').style.display = 'block';
+            setTimeout(() => {
+                regSec.style.display = 'none';
+                loginSec.style.display = 'block';
+            }, 1500);
+        });
+
+        // Customer Login Logic
+        document.getElementById('customerLoginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            let customers = JSON.parse(localStorage.getItem('zebCustomers')) || [];
+            const user = customers.find(c => c.email === email && c.password === password);
+
+            if (user) {
+                // Save active customer session
+                localStorage.setItem('zebActiveCustomer', JSON.stringify(user));
+                alert('Login successful! Welcome back, ' + user.name);
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
