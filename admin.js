@@ -1,130 +1,94 @@
-// Admin Login Logic
-const loginForm = document.getElementById('loginForm');
-const loginOverlay = document.getElementById('login-overlay');
-const errorMsg = document.getElementById('errorMsg');
-const logoutBtn = document.getElementById('logoutBtn');
+const ADMIN_KEY = "zeb123";
 
-if (sessionStorage.getItem('zebAdminLoggedIn') === 'true') {
-    loginOverlay.style.display = 'none';
-    loadAdminData();
-}
-
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+function loginAdmin() {
     const passInput = document.getElementById('adminPassword').value;
+    const errorText = document.getElementById('loginError');
 
-    if (passInput === 'admin123') {
-        sessionStorage.setItem('zebAdminLoggedIn', 'true');
-        loginOverlay.style.display = 'none';
-        errorMsg.style.display = 'none';
-        loadAdminData();
+    if (passInput === ADMIN_KEY) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminDashboard').style.display = 'block';
+        loadProjectsList();
     } else {
-        errorMsg.style.display = 'block';
-    }
-});
-
-logoutBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    sessionStorage.removeItem('zebAdminLoggedIn');
-    location.reload();
-});
-
-// Load Dashboard Data & Stats
-function loadAdminData() {
-    const tableBody = document.getElementById('messageTableBody');
-    const customerTableBody = document.getElementById('customerTableBody');
-    const totalCount = document.getElementById('totalCount');
-    const totalCustomerCount = document.getElementById('totalCustomerCount');
-    const totalGalleryCount = document.getElementById('totalGalleryCount');
-    
-    let messages = JSON.parse(localStorage.getItem('zebMessages')) || [];
-    let customers = JSON.parse(localStorage.getItem('zebCustomers')) || [];
-    let galleryItems = JSON.parse(localStorage.getItem('zebGalleryItems')) || [];
-    
-    totalCount.textContent = messages.length;
-    totalCustomerCount.textContent = customers.length;
-    totalGalleryCount.textContent = galleryItems.length;
-    
-    // Load Customers Table
-    customerTableBody.innerHTML = '';
-    if (customers.length === 0) {
-        customerTableBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted);">No customers registered yet.</td></tr>`;
-    } else {
-        customers.reverse().forEach((cust) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><span>${cust.name}</span></td>
-                <td>${cust.email}</td>
-                <td>${cust.date}</td>
-            `;
-            customerTableBody.appendChild(row);
-        });
-    }
-
-    // Load Messages Table
-    tableBody.innerHTML = '';
-    if (messages.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">No client inquiries received yet.</td></tr>`;
-    } else {
-        messages.reverse().forEach((msg) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><span>${msg.name}</span></td>
-                <td>${msg.email}</td>
-                <td>${msg.message}</td>
-                <td>${msg.date}</td>
-            `;
-            tableBody.appendChild(row);
-        });
+        errorText.style.display = 'block';
     }
 }
 
-// Upload Gallery Item from Phone
-const galleryForm = document.getElementById('galleryForm');
-galleryForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const fileInput = document.getElementById('galleryImageFile');
-    const title = document.getElementById('galleryTitle').value;
-    const subtitle = document.getElementById('gallerySubtitle').value;
+function logoutAdmin() {
+    document.getElementById('adminDashboard').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('adminPassword').value = "";
+}
 
-    if (fileInput.files && fileInput.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function(event) {
-            const base64Image = event.target.result;
-
-            let galleryItems = JSON.parse(localStorage.getItem('zebGalleryItems')) || [];
-            galleryItems.push({ imageUrl: base64Image, title, subtitle });
-            localStorage.setItem('zebGalleryItems', JSON.stringify(galleryItems));
-
-            alert('Photo uploaded successfully from your phone!');
-            galleryForm.reset();
-            loadAdminData();
-        };
-
-        reader.readAsDataURL(fileInput.files[0]);
+function updateTitle() {
+    const newTitle = document.getElementById('newTitleInput').value.trim();
+    if (newTitle !== "") {
+        localStorage.setItem('portfolioTitle', newTitle);
+        alert("Title updated permanently!");
+        document.getElementById('newTitleInput').value = "";
+    } else {
+        alert("Please enter a valid title.");
     }
-});
+}
 
-// Update Logo Name
-const logoForm = document.getElementById('logoForm');
-logoForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const mainText = document.getElementById('logoMainText').value;
-    const subText = document.getElementById('logoSubText').value;
-
-    const logoData = { mainText, subText };
-    localStorage.setItem('zebLogoData', JSON.stringify(logoData));
-
-    alert('Logo updated successfully!');
-    logoForm.reset();
-});
-
-// Clear Messages Handler
-const clearDataBtn = document.getElementById('clearDataBtn');
-clearDataBtn.addEventListener('click', () => {
-    if (confirm('Are you sure you want to clear all client inquiries?')) {
-        localStorage.removeItem('zebMessages');
-        loadAdminData();
+function updateLogo() {
+    const newLogo = document.getElementById('newLogoInput').value.trim();
+    if (newLogo !== "") {
+        localStorage.setItem('portfolioLogo', newLogo);
+        alert("Logo updated successfully!");
+        document.getElementById('newLogoInput').value = "";
+    } else {
+        alert("Please enter a valid logo name.");
     }
-});
+}
+
+function addNewProject() {
+    const title = document.getElementById('projectTitleInput').value.trim();
+    const desc = document.getElementById('projectDescInput').value.trim();
+    const img = document.getElementById('projectImgInput').value.trim();
+
+    if (title !== "" && desc !== "") {
+        let projects = JSON.parse(localStorage.getItem('customProjects')) || [];
+        projects.push({ title, desc, img });
+        localStorage.setItem('customProjects', JSON.stringify(projects));
+
+        alert("Project added with image successfully!");
+        document.getElementById('projectTitleInput').value = "";
+        document.getElementById('projectDescInput').value = "";
+        document.getElementById('projectImgInput').value = "";
+        loadProjectsList();
+    } else {
+        alert("Please fill in title and description.");
+    }
+}
+
+function loadProjectsList() {
+    const listContainer = document.getElementById('adminProjectsList');
+    let projects = JSON.parse(localStorage.getItem('customProjects')) || [];
+
+    if (projects.length === 0) {
+        listContainer.innerHTML = `<p style="color: #aaa; font-size: 13px;">No custom projects added yet.</p>`;
+        return;
+    }
+
+    listContainer.innerHTML = "";
+    projects.forEach((proj, index) => {
+        const item = document.createElement('div');
+        item.classList.add('admin-project-item');
+        item.innerHTML = `
+            <div>
+                <strong>${proj.title}</strong><br>
+                <span style="color: #aaa; font-size: 11px;">${proj.desc}</span>
+            </div>
+            <button onclick="deleteProject(${index})" class="btn-danger" style="padding: 4px 8px; font-size: 11px;">Delete</button>
+        `;
+        listContainer.appendChild(item);
+    });
+}
+
+function deleteProject(index) {
+    let projects = JSON.parse(localStorage.getItem('customProjects')) || [];
+    projects.splice(index, 1);
+    localStorage.setItem('customProjects', JSON.stringify(projects));
+    loadProjectsList();
+    alert("Project deleted!");
+}

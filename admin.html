@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeb Portfolio - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- Admin Login Screen -->
+    <div id="loginScreen" class="admin-auth-container">
+        <div class="card-glass login-box">
+            <h2>🛡️ Admin Login</h2>
+            <p>Access secret dashboard to manage your portfolio</p>
+            <input type="password" id="adminPassword" placeholder="Enter Admin Key (zeb123)" class="admin-input">
+            <button onclick="loginAdmin()" class="btn-primary">Login Dashboard</button>
+            <a href="index.html" class="nav-chip" style="display:inline-block; margin-top:15px; text-decoration:none; color:#ffb199;">← Back to Home</a>
+            <p id="loginError" class="error-text" style="display: none; color: #ff0844; margin-top: 10px;">Incorrect Password!</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <header class="admin-header">
+            <h1>🛡️ Admin Dashboard</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="index.html" class="btn-primary" style="padding: 6px 14px; text-decoration:none; font-size: 13px; line-height: 20px;">Home</a>
+                <button onclick="logoutAdmin()" class="btn-danger">Logout</button>
+            </div>
+        </header>
+
+        <main class="admin-container">
+            <!-- Update Profile Info -->
+            <section class="card-glass admin-section">
+                <h2>✏️ Update Profile Details & Logo</h2>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Profile Title / Name:</label>
+                    <input type="text" id="newTitleInput" placeholder="Enter new name or title" class="admin-input">
+                    <button onclick="updateTitle()" class="btn-primary" style="margin-top: 8px;">Save Title</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Logo Image URL / File Name:</label>
+                    <input type="text" id="newLogoInput" placeholder="e.g. logo.png" class="admin-input">
+                    <button onclick="updateLogo()" class="btn-primary" style="margin-top: 8px;">Save Logo</button>
+                </div>
+            </section>
+
+            <!-- Add New Project with Image -->
+            <section class="card-glass admin-section">
+                <h2>🚀 Add New Project with Image</h2>
+                <div class="form-group">
+                    <label>Project Title:</label>
+                    <input type="text" id="projectTitleInput" placeholder="Project name" class="admin-input">
+                    
+                    <label>Project Description:</label>
+                    <input type="text" id="projectDescInput" placeholder="Short description" class="admin-input">
+
+                    <label>Project Image URL / File Name:</label>
+                    <input type="text" id="projectImgInput" placeholder="e.g. project1.png" class="admin-input">
+                    
+                    <button onclick="addNewProject()" class="btn-primary" style="margin-top: 10px;">Publish Project</button>
+                </div>
+            </section>
+
+            <!-- Manage Existing Items -->
+            <section class="card-glass admin-section">
+                <h2>📋 Active Projects List</h2>
+                <div id="adminProjectsList" class="admin-projects-list">
+                    <p style="color: #aaa; font-size: 13px;">No custom projects added yet.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
