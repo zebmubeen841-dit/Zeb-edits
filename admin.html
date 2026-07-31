@@ -43,17 +43,15 @@
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
 
                 <div class="form-group">
-                    <label>Upload Permanent Logo/Photo:</label>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <input type="file" id="logoImageFile" accept="image/*" class="admin-input" style="flex-grow: 1; padding: 6px;">
-                        <button onclick="uploadNewLogo()" class="btn-primary" style="margin-top: 0; width: auto;">Upload Logo</button>
-                    </div>
+                    <label>Logo File Name / URL:</label>
+                    <input type="text" id="newLogoInput" placeholder="e.g. logo.png" class="admin-input">
+                    <button onclick="updateLogo()" class="btn-primary" style="margin-top: 8px;">Save Logo File Name</button>
                 </div>
             </section>
 
-            <!-- Add New Project with Permanent Image Upload -->
+            <!-- Add New Project with File Name -->
             <section class="card-glass admin-section">
-                <h2>🚀 Add New Project with Permanent Image</h2>
+                <h2>🚀 Add New Project with File Name</h2>
                 <div class="form-group">
                     <label>Project Title:</label>
                     <input type="text" id="projectTitleInput" placeholder="Project name" class="admin-input">
@@ -61,10 +59,10 @@
                     <label>Project Description:</label>
                     <input type="text" id="projectDescInput" placeholder="Short description" class="admin-input">
 
-                    <label>Upload Project Image File:</label>
-                    <input type="file" id="projectImgFile" accept="image/*" class="admin-input" style="padding: 6px;">
+                    <label>Project Image File Name / URL:</label>
+                    <input type="text" id="projectImgInput" placeholder="e.g. project1.png" class="admin-input">
                     
-                    <button onclick="addNewProject()" class="btn-primary" style="margin-top: 10px;">Publish Project Permanently</button>
+                    <button onclick="addNewProject()" class="btn-primary" style="margin-top: 10px;">Publish Project</button>
                 </div>
             </section>
 

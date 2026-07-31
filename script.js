@@ -1,5 +1,4 @@
 window.addEventListener('DOMContentLoaded', () => {
-    // Hide Loading Screen smoothly
     setTimeout(() => {
         const loader = document.getElementById('loadingScreen');
         if (loader) {
@@ -8,13 +7,12 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }, 1000);
 
-    // Load Custom Title
     const savedTitle = localStorage.getItem('portfolioTitle');
     if (savedTitle) {
         document.getElementById('mainTitleDisplay').innerText = savedTitle;
     }
 
-    // Load Permanent Custom Logo
+    // فائل نیم یا بیس 64 لوگو لوڈ کرنا
     const savedLogoBase64 = localStorage.getItem('portfolioLogoBase64');
     const mainLogoImg = document.getElementById('mainLogoDisplay');
     if (savedLogoBase64) {
@@ -26,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Lightbox Modal Setup for Zooming Images
+    // Lightbox Modal Setup
     const modal = document.createElement('div');
     modal.classList.add('image-modal');
     modal.innerHTML = `
@@ -53,7 +51,7 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'flex';
     };
 
-    // Load Custom Projects with Permanent Images
+    // پروجیکٹس کو فائل نیم کے ساتھ رینڈر کرنا
     const customProjects = JSON.parse(localStorage.getItem('customProjects')) || [];
     if (customProjects.length > 0) {
         const grid = document.getElementById('dynamicProjectsGrid');
