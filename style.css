@@ -1,54 +1,111 @@
-/* Base Styling & Theme */
-body {
-    background-color: #08080a;
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    transition: background-color 0.3s ease;
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --text-color: #fff;
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --header-bg: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Preloader Style */
-#preloader {
+body.light-mode {
+    --bg-gradient: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    --text-color: #222;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --border-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    padding-bottom: 75px;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+.top-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.theme-toggle-btn, .auth-btn, .admin-nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 6px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.theme-toggle-btn:hover, .auth-btn:hover, .admin-nav-btn:hover {
+    background: #ff0844;
+    color: #fff;
+    border-color: transparent;
+}
+
+.admin-nav-btn {
+    background: linear-gradient(45deg, #ff9900, #ff5500);
+    color: white;
+    border: none;
+}
+
+.brand-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.profile-logo-img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ff0844;
+    box-shadow: 0 0 20px rgba(255, 8, 68, 0.6), 0 5px 15px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.profile-logo-img:hover {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.page-startup-loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #08080a;
+    background: #0f0c29;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 99999;
-    transition: opacity 0.4s ease;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
 }
 
-.loader-box {
+.startup-loader-content {
     text-align: center;
 }
 
-.loader-logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 20px;
-    color: #00ffcc;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
-
-.spinner-ring {
-    width: 50px;
-    height: 50px;
-    border: 3px solid rgba(255,255,255,0.1);
-    border-top: 3px solid #00ffcc;
+.spinner-3d {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-top: 5px solid #ff0844;
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 10px auto;
-}
-
-.loader-counter {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    color: #aaa;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 20px rgba(255, 8, 68, 0.5);
 }
 
 @keyframes spin {
@@ -56,306 +113,574 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Workspace */
-#workspace {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 15px;
+.luxury-header {
+    background: var(--header-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Top Navigation */
-.top-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 12px 20px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    margin-bottom: 20px;
+.luxury-header h1 {
+    font-size: 24px;
+    background: linear-gradient(45deg, #ff0844, #ffb199);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 5px 15px rgba(255, 8, 68, 0.3);
 }
 
-.brand-container {
-    display: flex;
-    align-items: center;
+.search-section, .category-section {
+    margin-top: 10px;
 }
 
-.top-nav h2 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
-    color: #00ffcc;
-    margin: 0;
+.search-section input {
+    width: 85%;
+    max-width: 400px;
+    padding: 10px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
 }
 
-.nav-logo-img {
-    max-height: 35px;
-    max-width: 140px;
-    object-fit: contain;
-    border-radius: 4px;
+.search-section input:focus {
+    border-color: #ff0844;
+    box-shadow: 0 0 15px rgba(255, 8, 68, 0.5);
 }
 
-.nav-pills {
-    display: flex;
-    gap: 15px;
-    font-size: 13px;
-    font-weight: 600;
+.cat-btn {
+    padding: 6px 14px;
+    margin: 2px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.nav-pills span {
-    color: #aaa;
-    transition: color 0.2s;
+.cat-btn.active, .cat-btn:hover {
+    background: linear-gradient(45deg, #ff0844, #ffb199);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 8, 68, 0.4);
+    transform: translateY(-2px);
 }
 
-.nav-pills span:hover {
-    color: #00ffcc;
-}
-
-/* View Sections */
-.view-section {
-    display: none;
-}
-
-.view-section.active {
-    display: block;
-}
-
-/* Hero Banner */
-.hero-banner {
-    background: rgba(0, 255, 204, 0.05);
-    border: 1px solid rgba(0, 255, 204, 0.2);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-.hero-banner h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffcc;
-    margin: 0 0 5px 0;
-    font-size: 18px;
-}
-
-.hero-banner p {
-    color: #bbb;
-    margin: 0;
-    font-size: 13px;
-}
-
-/* Cards Grid */
-.cards-deck {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 15px;
-    padding: 5px 0;
-}
-
-.glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.card-img {
-    width: 100%;
-    max-height: 280px;
-    object-fit: contain;
-    background: rgba(0, 0, 0, 0.3);
+.luxury-select, .file-input {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 8px;
     border-radius: 8px;
-    margin-bottom: 12px;
-    border: 1px solid rgba(0, 255, 204, 0.3);
-    cursor: pointer;
-    transition: transform 0.2s;
+    color: var(--text-color);
+    margin: 4px;
 }
 
-.card-img:hover {
-    transform: scale(1.02);
-}
-
-.glass-card h4 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
-    color: #00ffcc;
+.friends-header-banner {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 15px;
     margin-bottom: 5px;
 }
 
-.glass-card p {
-    font-size: 12px;
-    color: #ccc;
-    margin: 0;
-}
-
-/* Admin Card & Form */
-.admin-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 20px;
-    backdrop-filter: blur(10px);
-}
-
-.admin-card h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
-    color: #00ffcc;
+.friends-header-banner h2 {
     margin: 0 0 5px 0;
+    color: #ff0844;
 }
 
-.admin-card p {
-    font-size: 12px;
-    color: #aaa;
+.friends-header-banner p {
     margin: 0;
-}
-
-.admin-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.admin-form input[type="text"],
-.admin-form input[type="password"] {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 10px 12px;
-    border-radius: 6px;
-    color: #fff;
     font-size: 13px;
-    outline: none;
+    opacity: 0.8;
 }
 
-.admin-form input:focus {
-    border-color: #00ffcc;
-}
-
-.file-upload-box {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px dashed rgba(255, 255, 255, 0.2);
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    color: #ccc;
-}
-
-.file-upload-box input {
-    margin-top: 5px;
-    color: #aaa;
-    font-size: 11px;
-}
-
-/* Neon Buttons */
-.neon-btn {
-    background: transparent;
-    border: 1px solid #00ffcc;
-    color: #00ffcc;
-    padding: 10px;
-    border-radius: 6px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.neon-btn:hover {
-    background: #00ffcc;
-    color: #08080a;
-    box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
-}
-
-.neon-btn.danger {
-    border-color: #ff3366;
-    color: #ff3366;
-}
-
-.neon-btn.danger:hover {
-    background: #ff3366;
-    color: #fff;
-    box-shadow: 0 0 10px rgba(255, 51, 102, 0.4);
-}
-
-.action-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-/* Fullscreen Image Modal Viewer */
-#imgModal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    justify-content: center;
+.friend-user-info {
+    display: flex;
     align-items: center;
-    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
-#imgModal img {
-    max-width: 90%;
-    max-height: 80vh;
-    border: 2px solid #00ffcc;
-    border-radius: 8px;
-}
-
-#imgModal button {
-    margin-top: 15px;
-    background: #ff3366;
-    color: #fff;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
-}
-
-/* Floating WhatsApp Button Style */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25d366;
-    color: #fff;
-    width: 55px;
-    height: 55px;
+.friend-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #ff0844, #ffb199);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    z-index: 1000;
-    text-decoration: none;
-    transition: transform 0.3s ease;
+    font-size: 18px;
 }
 
-.whatsapp-float:hover {
+.friend-user-info h4 {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.friend-time {
+    font-size: 11px;
+    color: #aaa;
+}
+
+/* TikTok Style Bottom Navigation Bar CSS */
+.tiktok-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    background: rgba(15, 12, 41, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 3000;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #aaa;
+    font-size: 10px;
+    transition: 0.3s;
+}
+
+.nav-item.active, .nav-item:hover {
+    color: #fff;
+}
+
+.nav-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.nav-label {
+    font-weight: 600;
+}
+
+.nav-upload-btn-container {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tiktok-plus-btn {
+    width: 45px;
+    height: 32px;
+    background: linear-gradient(90deg, #25f4ee, #fe2c55);
+    border-radius: 10px;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(254, 44, 85, 0.5);
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.tiktok-plus-btn:hover {
     transform: scale(1.1);
 }
 
-/* Admin Status Bar */
-.admin-status-bar {
+/* Feed Container */
+.feed-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 25px;
+}
+
+.luxury-3d-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.media-box {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.media-box video, .media-box img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+}
+
+.card-title {
+    color: var(--text-color);
+    font-weight: 600;
+    margin: 12px 0;
+    font-size: 15px;
+    text-align: right;
+}
+
+.card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0, 255, 204, 0.1);
-    border: 1px solid rgba(0, 255, 204, 0.3);
-    padding: 8px 12px;
-    border-radius: 6px;
-    margin-bottom: 15px;
+    margin-top: 12px;
+}
+
+.like-btn, .share-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 6px 12px;
+    border-radius: 15px;
+    cursor: pointer;
     font-size: 12px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    background: linear-gradient(45deg, #11998e, #38ef7d);
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.comments-section {
+    margin-top: 14px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+
+.comments-list {
+    max-height: 80px;
+    overflow-y: auto;
+    font-size: 12px;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    text-align: left;
+    opacity: 0.8;
+}
+
+.comment-item {
+    background: var(--card-bg);
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.comment-input-box {
+    display: flex;
+    gap: 6px;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 6px 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-size: 12px;
+    outline: none;
+}
+
+.comment-submit-btn {
+    padding: 6px 12px;
+    background: #ff0844;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4000;
+}
+
+.modal-box {
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 25px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    color: #fff;
+}
+
+.admin-box {
+    max-width: 450px;
+}
+
+/* TikTok Style Profile Modal CSS */
+.tiktok-profile-box {
+    max-width: 420px;
+    width: 90%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.tiktok-profile-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.tiktok-avatar {
+    width: 75px;
+    height: 75px;
+    background: linear-gradient(45deg, #ff0844, #00c6ff);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin: 0 auto 8px auto;
+    box-shadow: 0 0 20px rgba(255, 8, 68, 0.5);
+}
+
+.tiktok-profile-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.tiktok-handle {
+    font-size: 13px;
+    color: #00c6ff;
+    margin: 2px 0 10px 0;
+}
+
+.tiktok-stats {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 0;
+}
+
+.stat-box {
+    text-align: center;
+}
+
+.stat-box span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-box p {
+    font-size: 11px;
+    margin: 0;
+    color: #aaa;
+}
+
+.tiktok-tabs {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: #ff0844;
+    font-weight: bold;
+    font-size: 13px;
+    border-bottom: 2px solid #ff0844;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+.tiktok-grid-container {
+    flex: 1;
+    max-height: 200px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: rgba(0,0,0,0.3);
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.no-videos-text {
+    grid-column: span 3;
+    color: #888;
+    font-size: 12px;
+    text-align: center;
+    margin: 25px 0;
+}
+
+.tiktok-grid-item {
+    position: relative;
+    aspect-ratio: 9/16;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.tiktok-grid-item video, .tiktok-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.logout-btn {
+    background: #ff0844 !important;
+    margin-top: 0 !important;
+}
+
+.modal-input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    outline: none;
+}
+
+.modal-submit-btn {
+    width: 95%;
+    padding: 10px;
+    background: linear-gradient(45deg, #ff0844, #ffb199);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.modal-close-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    margin-top: 8px;
+    font-size: 13px;
+    width: 100%;
+}
+
+.admin-media-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.admin-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.delete-media-btn {
+    background: #ff0844;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.luxury-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 20, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+}
+
+.loader-content {
+    background: rgba(255, 255, 258, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+}
+
+.loader-content p {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 12px;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff0844, #ffb199);
+    border-radius: 10px;
+    transition: width 0.1s ease-in-out;
 }
