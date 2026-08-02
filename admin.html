@@ -1,81 +1,257 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeb Portfolio - Admin Dashboard</title>
-    <link rel="stylesheet" href="admin.css">
+    <title>Admin Panel - ZEB EDITOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            padding: 40px 20px;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+        .admin-header h2 { color: #111; font-size: 24px; }
+        .btn-back {
+            background: #64748b;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .form-section { margin-bottom: 25px; }
+        .form-section h3 {
+            font-size: 18px;
+            color: #00c9ff;
+            margin-bottom: 15px;
+            border-left: 4px solid #00c9ff;
+            padding-left: 10px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+        .form-group input[type="file"] { padding: 7px; background: #f8fafc; cursor: pointer; }
+        .btn-save {
+            background: #22c55e;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-save:hover { background: #16a34a; }
+        .success-msg {
+            background: #dcfce7;
+            color: #166534;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Admin Login Screen -->
-    <div id="loginScreen" class="admin-auth-container">
-        <div class="card-glass login-box">
-            <h2>🛡️ Admin Login</h2>
-            <p>Access secret dashboard to manage your portfolio</p>
-            <input type="password" id="adminPassword" placeholder="Enter Admin Key (zeb123)" class="admin-input">
-            <button onclick="loginAdmin()" class="btn-primary">Login Dashboard</button>
-            <a href="index.html" class="nav-chip" style="display:inline-block; margin-top:15px; text-decoration:none; color:#ffb199;">← Back to Home</a>
-            <p id="loginError" class="error-text" style="display: none; color: #ff0844; margin-top: 10px;">Incorrect Password!</p>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h2><i class="fas fa-tools"></i> Advanced Admin Panel</h2>
+            <a href="index.html" class="btn-back"><i class="fas fa-eye"></i> View Website</a>
         </div>
-    </div>
 
-    <!-- Admin Dashboard -->
-    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
-        <header class="admin-header">
-            <h1>🛡️ Admin Dashboard</h1>
-            <div style="display: flex; gap: 10px;">
-                <a href="index.html" class="btn-primary" style="padding: 6px 14px; text-decoration:none; font-size: 13px; line-height: 20px;">Home</a>
-                <button onclick="logoutAdmin()" class="btn-danger">Logout</button>
+        <div id="successMessage" class="success-msg">Changes saved successfully!</div>
+
+        <form id="adminForm">
+            <!-- General Info -->
+            <div class="form-section">
+                <h3>General Information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="nameInput" placeholder="Mubeen Zeb">
+                    </div>
+                    <div class="form-group">
+                        <label>Badge Title</label>
+                        <input type="text" id="badgeInput" placeholder="Digital Editor & Designer">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Short Description</label>
+                        <textarea id="descInput" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Profile Photo (Mobile Upload)</label>
+                        <input type="file" id="profileFile" accept="image/*" onchange="encodeProfile(this)">
+                    </div>
+                </div>
             </div>
-        </header>
 
-        <main class="admin-container">
-            <!-- Update Profile Info & Logo -->
-            <section class="card-glass admin-section">
-                <h2>✏️ Update Profile Details & Logo</h2>
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label>Profile Title / Name:</label>
-                    <input type="text" id="newTitleInput" placeholder="Enter new name or title" class="admin-input">
-                    <button onclick="updateTitle()" class="btn-primary" style="margin-top: 8px;">Save Title</button>
+            <!-- Social Media & Contact Links -->
+            <div class="form-section">
+                <h3>Social Media & Contacts</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>WhatsApp Number (e.g. 923001234567)</label>
+                        <input type="text" id="whatsappInput">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="phoneInput">
+                    </div>
+                    <div class="form-group">
+                        <label>Facebook Profile/Page URL</label>
+                        <input type="text" id="fbInput" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>YouTube Channel URL</label>
+                        <input type="text" id="ytInput" placeholder="https://youtube.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Instagram Profile URL</label>
+                        <input type="text" id="instaInput" placeholder="https://instagram.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="addressInput">
+                    </div>
                 </div>
+            </div>
 
-                <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+            <!-- Projects Control (Mobile Upload) -->
+            <div class="form-section">
+                <h3>Projects Control (Titles & Thumbnails)</h3>
+                <div class="form-grid">
+                    <div class="form-group"><label>Project 1 Title</label><input type="text" id="p1TitleInput"></div>
+                    <div class="form-group"><label>Project 1 Image</label><input type="file" id="p1File" accept="image/*" onchange="encodeImage(this, 'p1ImgData')"></div>
 
-                <div class="form-group">
-                    <label>Logo File Name / URL:</label>
-                    <input type="text" id="newLogoInput" placeholder="e.g. logo.png" class="admin-input">
-                    <button onclick="updateLogo()" class="btn-primary" style="margin-top: 8px;">Save Logo File Name</button>
+                    <div class="form-group"><label>Project 2 Title</label><input type="text" id="p2TitleInput"></div>
+                    <div class="form-group"><label>Project 2 Image</label><input type="file" id="p2File" accept="image/*" onchange="encodeImage(this, 'p2ImgData')"></div>
+
+                    <div class="form-group"><label>Project 3 Title</label><input type="text" id="p3TitleInput"></div>
+                    <div class="form-group"><label>Project 3 Image</label><input type="file" id="p3File" accept="image/*" onchange="encodeImage(this, 'p3ImgData')"></div>
+
+                    <div class="form-group"><label>Project 4 Title</label><input type="text" id="p4TitleInput"></div>
+                    <div class="form-group"><label>Project 4 Image</label><input type="file" id="p4File" accept="image/*" onchange="encodeImage(this, 'p4ImgData')"></div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Add New Project with File Name -->
-            <section class="card-glass admin-section">
-                <h2>🚀 Add New Project with File Name</h2>
-                <div class="form-group">
-                    <label>Project Title:</label>
-                    <input type="text" id="projectTitleInput" placeholder="Project name" class="admin-input">
-                    
-                    <label>Project Description:</label>
-                    <input type="text" id="projectDescInput" placeholder="Short description" class="admin-input">
-
-                    <label>Project Image File Name / URL:</label>
-                    <input type="text" id="projectImgInput" placeholder="e.g. project1.png" class="admin-input">
-                    
-                    <button onclick="addNewProject()" class="btn-primary" style="margin-top: 10px;">Publish Project</button>
-                </div>
-            </section>
-
-            <!-- Manage Existing Items -->
-            <section class="card-glass admin-section">
-                <h2>📋 Active Projects List</h2>
-                <div id="adminProjectsList" class="admin-projects-list">
-                    <p style="color: #aaa; font-size: 13px;">No custom projects added yet.</p>
-                </div>
-            </section>
-        </main>
+            <button type="button" class="btn-save" onclick="saveChanges()">Save All Changes</button>
+        </form>
     </div>
 
-    <script src="admin.js"></script>
+    <script>
+        let tempImages = {};
+        let tempProfile = "";
+
+        function encodeProfile(element) {
+            let file = element.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onloadend = function() { tempProfile = reader.result; }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function encodeImage(element, storageKey) {
+            let file = element.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onloadend = function() { tempImages[storageKey] = reader.result; }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            if(localStorage.getItem('zeb_name')) document.getElementById('nameInput').value = localStorage.getItem('zeb_name');
+            if(localStorage.getItem('zeb_badge')) document.getElementById('badgeInput').value = localStorage.getItem('zeb_badge');
+            if(localStorage.getItem('zeb_desc')) document.getElementById('descInput').value = localStorage.getItem('zeb_desc');
+            
+            if(localStorage.getItem('zeb_whatsapp')) document.getElementById('whatsappInput').value = localStorage.getItem('zeb_whatsapp');
+            if(localStorage.getItem('zeb_phone')) document.getElementById('phoneInput').value = localStorage.getItem('zeb_phone');
+            if(localStorage.getItem('zeb_address')) document.getElementById('addressInput').value = localStorage.getItem('zeb_address');
+            if(localStorage.getItem('zeb_fb')) document.getElementById('fbInput').value = localStorage.getItem('zeb_fb');
+            if(localStorage.getItem('zeb_yt')) document.getElementById('ytInput').value = localStorage.getItem('zeb_yt');
+            if(localStorage.getItem('zeb_insta')) document.getElementById('instaInput').value = localStorage.getItem('zeb_insta');
+
+            if(localStorage.getItem('zeb_p1t')) document.getElementById('p1TitleInput').value = localStorage.getItem('zeb_p1t');
+            if(localStorage.getItem('zeb_p2t')) document.getElementById('p2TitleInput').value = localStorage.getItem('zeb_p2t');
+            if(localStorage.getItem('zeb_p3t')) document.getElementById('p3TitleInput').value = localStorage.getItem('zeb_p3t');
+            if(localStorage.getItem('zeb_p4t')) document.getElementById('p4TitleInput').value = localStorage.getItem('zeb_p4t');
+        });
+
+        function saveChanges() {
+            localStorage.setItem('zeb_name', document.getElementById('nameInput').value);
+            localStorage.setItem('zeb_badge', document.getElementById('badgeInput').value);
+            localStorage.setItem('zeb_desc', document.getElementById('descInput').value);
+
+            localStorage.setItem('zeb_whatsapp', document.getElementById('whatsappInput').value);
+            localStorage.setItem('zeb_phone', document.getElementById('phoneInput').value);
+            localStorage.setItem('zeb_address', document.getElementById('addressInput').value);
+            localStorage.setItem('zeb_fb', document.getElementById('fbInput').value);
+            localStorage.setItem('zeb_yt', document.getElementById('ytInput').value);
+            localStorage.setItem('zeb_insta', document.getElementById('instaInput').value);
+
+            localStorage.setItem('zeb_p1t', document.getElementById('p1TitleInput').value);
+            localStorage.setItem('zeb_p2t', document.getElementById('p2TitleInput').value);
+            localStorage.setItem('zeb_p3t', document.getElementById('p3TitleInput').value);
+            localStorage.setItem('zeb_p4t', document.getElementById('p4TitleInput').value);
+
+            if(tempProfile) localStorage.setItem('zeb_photo', tempProfile);
+            if(tempImages['p1ImgData']) localStorage.setItem('zeb_p1i', tempImages['p1ImgData']);
+            if(tempImages['p2ImgData']) localStorage.setItem('zeb_p2i', tempImages['p2ImgData']);
+            if(tempImages['p3ImgData']) localStorage.setItem('zeb_p3i', tempImages['p3ImgData']);
+            if(tempImages['p4ImgData']) localStorage.setItem('zeb_p4i', tempImages['p4ImgData']);
+
+            let msg = document.getElementById('successMessage');
+            msg.style.display = 'block';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            setTimeout(() => { msg.style.display = 'none'; }, 2500);
+        }
+    </script>
 </body>
 </html>
