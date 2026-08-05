@@ -3,255 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - ZEB EDITOR</title>
+    <title>Zeb Graphics - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: #f0f2f5;
-            padding: 40px 20px;
-        }
         .admin-container {
             max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
+            margin: 40px auto;
+            background: #141414;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            border: 1px solid rgba(255,0,51,0.3);
         }
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid #eee;
+            border-bottom: 1px solid #222;
             padding-bottom: 15px;
         }
-        .admin-header h2 { color: #111; font-size: 24px; }
-        .btn-back {
-            background: #64748b;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+        .admin-header h2 {
+            color: #ff0033;
         }
-        .form-section { margin-bottom: 25px; }
-        .form-section h3 {
-            font-size: 18px;
-            color: #00c9ff;
-            margin-bottom: 15px;
-            border-left: 4px solid #00c9ff;
-            padding-left: 10px;
+        .form-group {
+            margin-bottom: 20px;
         }
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .form-group { margin-bottom: 15px; }
-        .form-group.full-width { grid-column: span 2; }
         .form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            color: #bbb;
+            font-size: 14px;
         }
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 14px;
-            outline: none;
-        }
-        .form-group input[type="file"] { padding: 7px; background: #f8fafc; cursor: pointer; }
-        .btn-save {
-            background: #22c55e;
+            padding: 12px;
+            background: #0a0a0a;
+            border: 1px solid #333;
             color: #fff;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn-save {
+            background: #ff0033;
+            color: white;
             border: none;
             padding: 12px 25px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 6px;
+            font-size: 14px;
             cursor: pointer;
-            width: 100%;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
         }
-        .btn-save:hover { background: #16a34a; }
+        .btn-save:hover {
+            background: #cc0029;
+        }
+        .back-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            color: #fff;
+        }
         .success-msg {
-            background: #dcfce7;
-            color: #166534;
+            background: rgba(0,255,100,0.1);
+            color: #00ff66;
             padding: 10px;
-            border-radius: 6px;
+            border-radius: 5px;
             margin-bottom: 20px;
-            text-align: center;
-            font-weight: 500;
             display: none;
         }
     </style>
 </head>
-<body>
+<body style="background-color: #080808;">
 
     <div class="admin-container">
         <div class="admin-header">
-            <h2><i class="fas fa-tools"></i> Advanced Admin Panel</h2>
-            <a href="index.html" class="btn-back"><i class="fas fa-eye"></i> View Website</a>
+            <h2><i class="fa-solid fa-gear"></i> ZEB GRAPHICS ADMIN PANEL</h2>
+            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> View Website</a>
         </div>
 
-        <div id="successMessage" class="success-msg">Changes saved successfully!</div>
+        <div id="successAlert" class="success-msg">Changes saved successfully! Website updated.</div>
 
         <form id="adminForm">
-            <!-- General Info -->
-            <div class="form-section">
-                <h3>General Information</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Your Name</label>
-                        <input type="text" id="nameInput" placeholder="Mubeen Zeb">
-                    </div>
-                    <div class="form-group">
-                        <label>Badge Title</label>
-                        <input type="text" id="badgeInput" placeholder="Digital Editor & Designer">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Short Description</label>
-                        <textarea id="descInput" rows="2"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Profile Photo (Mobile Upload)</label>
-                        <input type="file" id="profileFile" accept="image/*" onchange="encodeProfile(this)">
-                    </div>
-                </div>
+            <h3>Hero Section Control</h3>
+            <div class="form-group">
+                <label>Hero Subtitle Tag</label>
+                <input type="text" id="heroSubtitle" value="WELCOME TO ZEB GRAPHICS">
+            </div>
+            <div class="form-group">
+                <label>Hero Main Title</label>
+                <input type="text" id="heroTitle" value="WE ARE CREATIVE DESIGN AGENCY">
+            </div>
+            <div class="form-group">
+                <label>Hero Description</label>
+                <textarea id="heroDesc">We turn ideas into stunning visuals and seamless experiences that inspire, engage, and elevate your brand to the next level.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Hero Button Text</label>
+                <input type="text" id="heroBtnText" value="GET IN TOUCH">
+            </div>
+            <div class="form-group">
+                <label>Upload Hero Image / Photo</label>
+                <input type="file" id="heroImgFile" accept="image/*">
             </div>
 
-            <!-- Social Media & Contact Links -->
-            <div class="form-section">
-                <h3>Social Media & Contacts</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>WhatsApp Number (e.g. 923001234567)</label>
-                        <input type="text" id="whatsappInput">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="text" id="phoneInput">
-                    </div>
-                    <div class="form-group">
-                        <label>Facebook Profile/Page URL</label>
-                        <input type="text" id="fbInput" placeholder="https://facebook.com/...">
-                    </div>
-                    <div class="form-group">
-                        <label>YouTube Channel URL</label>
-                        <input type="text" id="ytInput" placeholder="https://youtube.com/...">
-                    </div>
-                    <div class="form-group">
-                        <label>Instagram Profile URL</label>
-                        <input type="text" id="instaInput" placeholder="https://instagram.com/...">
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" id="addressInput">
-                    </div>
-                </div>
+            <hr style="border: 0; border-top: 1px solid #222; margin: 30px 0;">
+
+            <h3>About Section Control</h3>
+            <div class="form-group">
+                <label>About Tag</label>
+                <input type="text" id="aboutTag" value="ABOUT US">
+            </div>
+            <div class="form-group">
+                <label>About Main Title</label>
+                <input type="text" id="aboutTitle" value="We Bring Creative Ideas To Life.">
+            </div>
+            <div class="form-group">
+                <label>About Subtitle Tag</label>
+                <input type="text" id="aboutSubtitle" value="We love Creating">
+            </div>
+            <div class="form-group">
+                <label>About Description</label>
+                <textarea id="aboutDesc">Your ideas deserve more than just good design — they deserve attention, emotion, and results. We combine creativity, innovation, and strategy to transform your ideas into unique digital experiences that captivate audiences and grow your business. Every pixel, color, and interaction is crafted to reflect your brand's story in the most impactful way possible.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Upload About Image / Photo</label>
+                <input type="file" id="aboutImgFile" accept="image/*">
             </div>
 
-            <!-- Projects Control (Mobile Upload) -->
-            <div class="form-section">
-                <h3>Projects Control (Titles & Thumbnails)</h3>
-                <div class="form-grid">
-                    <div class="form-group"><label>Project 1 Title</label><input type="text" id="p1TitleInput"></div>
-                    <div class="form-group"><label>Project 1 Image</label><input type="file" id="p1File" accept="image/*" onchange="encodeImage(this, 'p1ImgData')"></div>
-
-                    <div class="form-group"><label>Project 2 Title</label><input type="text" id="p2TitleInput"></div>
-                    <div class="form-group"><label>Project 2 Image</label><input type="file" id="p2File" accept="image/*" onchange="encodeImage(this, 'p2ImgData')"></div>
-
-                    <div class="form-group"><label>Project 3 Title</label><input type="text" id="p3TitleInput"></div>
-                    <div class="form-group"><label>Project 3 Image</label><input type="file" id="p3File" accept="image/*" onchange="encodeImage(this, 'p3ImgData')"></div>
-
-                    <div class="form-group"><label>Project 4 Title</label><input type="text" id="p4TitleInput"></div>
-                    <div class="form-group"><label>Project 4 Image</label><input type="file" id="p4File" accept="image/*" onchange="encodeImage(this, 'p4ImgData')"></div>
-                </div>
-            </div>
-
-            <button type="button" class="btn-save" onclick="saveChanges()">Save All Changes</button>
+            <button type="submit" class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
         </form>
     </div>
 
     <script>
-        let tempImages = {};
-        let tempProfile = "";
-
-        function encodeProfile(element) {
-            let file = element.files[0];
-            if (file) {
-                let reader = new FileReader();
-                reader.onloadend = function() { tempProfile = reader.result; }
-                reader.readAsDataURL(file);
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = JSON.parse(localStorage.getItem('zebGraphicsData'));
+            if (savedData) {
+                if(savedData.heroSubtitle) document.getElementById('heroSubtitle').value = savedData.heroSubtitle;
+                if(savedData.heroTitle) document.getElementById('heroTitle').value = savedData.heroTitle;
+                if(savedData.heroDesc) document.getElementById('heroDesc').value = savedData.heroDesc;
+                if(savedData.heroBtnText) document.getElementById('heroBtnText').value = savedData.heroBtnText;
+                
+                if(savedData.aboutTag) document.getElementById('aboutTag').value = savedData.aboutTag;
+                if(savedData.aboutTitle) document.getElementById('aboutTitle').value = savedData.aboutTitle;
+                if(savedData.aboutSubtitle) document.getElementById('aboutSubtitle').value = savedData.aboutSubtitle;
+                if(savedData.aboutDesc) document.getElementById('aboutDesc').value = savedData.aboutDesc;
             }
-        }
-
-        function encodeImage(element, storageKey) {
-            let file = element.files[0];
-            if (file) {
-                let reader = new FileReader();
-                reader.onloadend = function() { tempImages[storageKey] = reader.result; }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        window.addEventListener('load', function() {
-            if(localStorage.getItem('zeb_name')) document.getElementById('nameInput').value = localStorage.getItem('zeb_name');
-            if(localStorage.getItem('zeb_badge')) document.getElementById('badgeInput').value = localStorage.getItem('zeb_badge');
-            if(localStorage.getItem('zeb_desc')) document.getElementById('descInput').value = localStorage.getItem('zeb_desc');
-            
-            if(localStorage.getItem('zeb_whatsapp')) document.getElementById('whatsappInput').value = localStorage.getItem('zeb_whatsapp');
-            if(localStorage.getItem('zeb_phone')) document.getElementById('phoneInput').value = localStorage.getItem('zeb_phone');
-            if(localStorage.getItem('zeb_address')) document.getElementById('addressInput').value = localStorage.getItem('zeb_address');
-            if(localStorage.getItem('zeb_fb')) document.getElementById('fbInput').value = localStorage.getItem('zeb_fb');
-            if(localStorage.getItem('zeb_yt')) document.getElementById('ytInput').value = localStorage.getItem('zeb_yt');
-            if(localStorage.getItem('zeb_insta')) document.getElementById('instaInput').value = localStorage.getItem('zeb_insta');
-
-            if(localStorage.getItem('zeb_p1t')) document.getElementById('p1TitleInput').value = localStorage.getItem('zeb_p1t');
-            if(localStorage.getItem('zeb_p2t')) document.getElementById('p2TitleInput').value = localStorage.getItem('zeb_p2t');
-            if(localStorage.getItem('zeb_p3t')) document.getElementById('p3TitleInput').value = localStorage.getItem('zeb_p3t');
-            if(localStorage.getItem('zeb_p4t')) document.getElementById('p4TitleInput').value = localStorage.getItem('zeb_p4t');
         });
 
-        function saveChanges() {
-            localStorage.setItem('zeb_name', document.getElementById('nameInput').value);
-            localStorage.setItem('zeb_badge', document.getElementById('badgeInput').value);
-            localStorage.setItem('zeb_desc', document.getElementById('descInput').value);
+        document.getElementById('adminForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-            localStorage.setItem('zeb_whatsapp', document.getElementById('whatsappInput').value);
-            localStorage.setItem('zeb_phone', document.getElementById('phoneInput').value);
-            localStorage.setItem('zeb_address', document.getElementById('addressInput').value);
-            localStorage.setItem('zeb_fb', document.getElementById('fbInput').value);
-            localStorage.setItem('zeb_yt', document.getElementById('ytInput').value);
-            localStorage.setItem('zeb_insta', document.getElementById('instaInput').value);
+            const heroImgInput = document.getElementById('heroImgFile');
+            const aboutImgInput = document.getElementById('aboutImgFile');
 
-            localStorage.setItem('zeb_p1t', document.getElementById('p1TitleInput').value);
-            localStorage.setItem('zeb_p2t', document.getElementById('p2TitleInput').value);
-            localStorage.setItem('zeb_p3t', document.getElementById('p3TitleInput').value);
-            localStorage.setItem('zeb_p4t', document.getElementById('p4TitleInput').value);
+            let dataToSave = {
+                heroSubtitle: document.getElementById('heroSubtitle').value,
+                heroTitle: document.getElementById('heroTitle').value,
+                heroDesc: document.getElementById('heroDesc').value,
+                heroBtnText: document.getElementById('heroBtnText').value,
+                aboutTag: document.getElementById('aboutTag').value,
+                aboutTitle: document.getElementById('aboutTitle').value,
+                aboutSubtitle: document.getElementById('aboutSubtitle').value,
+                aboutDesc: document.getElementById('aboutDesc').value
+            };
 
-            if(tempProfile) localStorage.setItem('zeb_photo', tempProfile);
-            if(tempImages['p1ImgData']) localStorage.setItem('zeb_p1i', tempImages['p1ImgData']);
-            if(tempImages['p2ImgData']) localStorage.setItem('zeb_p2i', tempImages['p2ImgData']);
-            if(tempImages['p3ImgData']) localStorage.setItem('zeb_p3i', tempImages['p3ImgData']);
-            if(tempImages['p4ImgData']) localStorage.setItem('zeb_p4i', tempImages['p4ImgData']);
+            const existingData = JSON.parse(localStorage.getItem('zebGraphicsData')) || {};
+            dataToSave.heroImg = existingData.heroImg || '';
+            dataToSave.aboutImg = existingData.aboutImg || '';
 
-            let msg = document.getElementById('successMessage');
-            msg.style.display = 'block';
-            window.scrollTo({top: 0, behavior: 'smooth'});
-            setTimeout(() => { msg.style.display = 'none'; }, 2500);
-        }
+            let filesProcessed = 0;
+            const checkDone = () => {
+                filesProcessed++;
+                if (filesProcessed >= 2) {
+                    localStorage.setItem('zebGraphicsData', JSON.stringify(dataToSave));
+                    document.getElementById('successAlert').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('successAlert').style.display = 'none';
+                    }, 3000);
+                }
+            };
+
+            if (heroImgInput.files && heroImgInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    dataToSave.heroImg = e.target.result;
+                    checkDone();
+                };
+                reader.readAsDataURL(heroImgInput.files[0]);
+            } else {
+                checkDone();
+            }
+
+            if (aboutImgInput.files && aboutImgInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    dataToSave.aboutImg = e.target.result;
+                    checkDone();
+                };
+                reader.readAsDataURL(aboutImgInput.files[0]);
+            } else {
+                checkDone();
+            }
+        });
     </script>
 </body>
 </html>

@@ -6,272 +6,467 @@
 }
 
 body {
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #0b0b0b;
+    color: #ffffff;
+    overflow-x: hidden;
 }
 
-/* Header Styles */
+/* --- Loading Screen Styles --- */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0b0b;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loader-logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin-bottom: 25px;
+}
+
+.loader-logo span {
+    color: #ff1e1e;
+}
+
+.circular-loader {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(#ff1e1e 0deg, #222 0deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(255, 30, 30, 0.2);
+}
+
+.circular-loader::before {
+    content: '';
+    position: absolute;
+    width: 116px;
+    height: 116px;
+    background-color: #0b0b0b;
+    border-radius: 50%;
+}
+
+.loader-percentage {
+    position: relative;
+    font-size: 26px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.loader-bar-container {
+    width: 220px;
+    height: 3px;
+    background-color: #222;
+    border-radius: 2px;
+    margin-top: 25px;
+    overflow: hidden;
+}
+
+.loader-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #ff1e1e;
+    transition: width 0.1s linear;
+}
+
+.loader-text {
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #777;
+    text-transform: uppercase;
+}
+
+/* --- Website Header --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    flex-wrap: wrap;
-    gap: 10px;
+    padding: 20px 50px;
+    border-bottom: 1px solid #1a1a1a;
 }
 
-.logo h2 {
-    font-size: 22px;
-    color: #111;
-    line-height: 1.1;
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ff1e1e;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .logo span {
-    color: #00c9ff;
-    display: block;
+    color: #ff1e1e;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 20px;
+    gap: 30px;
+    align-items: center;
 }
 
 nav ul li a {
+    color: #aaa;
     text-decoration: none;
-    color: #555;
-    font-weight: 500;
     font-size: 14px;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+nav ul li a:hover {
+    color: #ff1e1e;
+}
+
+.admin-nav-btn {
+    background-color: transparent;
+    border: 1px solid #ff1e1e;
+    color: #fff;
+    padding: 6px 15px;
+    font-size: 13px;
+    border-radius: 3px;
+    cursor: pointer;
     transition: 0.3s;
 }
 
-nav ul li a.active, nav ul li a:hover {
-    color: #00c9ff;
+.admin-nav-btn:hover {
+    background-color: #ff1e1e;
 }
 
-.header-buttons {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+/* --- Container --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
-.btn-cv {
-    background: #0f172a;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
+/* --- Page Sections Visibility --- */
+.page-section {
+    display: none;
 }
 
-.btn-admin {
-    background: #ff4757;
-    color: #fff;
-    padding: 8px 14px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    transition: 0.3s;
+.page-section.active {
+    display: block;
 }
 
-.btn-admin:hover {
-    background: #e84118;
-}
-
-/* Hero Section */
+/* --- Hero Section --- */
 .hero {
     display: flex;
-    flex-direction: column-reverse;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    padding: 30px 5%;
-    position: relative;
-    overflow: hidden;
+    padding: 40px 0;
+    border-bottom: 1px solid #1a1a1a;
+    gap: 40px;
 }
 
 .hero-content {
-    width: 100%;
-    z-index: 2;
-    margin-top: 25px;
+    max-width: 550px;
 }
 
-.hero-content h3 {
-    font-size: 22px;
-    font-weight: 400;
-    color: #444;
+.welcome-tag {
+    color: #ff1e1e;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
-.hero-content h1 {
-    font-size: 38px;
-    color: #111;
-    margin: 5px 0;
+.hero h1 {
+    font-size: 44px;
+    line-height: 1.15;
+    margin-bottom: 20px;
     font-weight: 700;
 }
 
-.badge {
-    display: inline-block;
-    background: #e0f7fa;
-    color: #00838f;
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 12px;
+.hero h1 span {
+    color: #ff1e1e;
 }
 
-.hero-content p {
-    color: #666;
-    font-size: 14px;
-    line-align: 1.5;
-    max-width: 100%;
-    margin: 0 auto 20px auto;
+.hero p {
+    color: #888;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 25px;
 }
 
-.btn-primary {
+.btn {
     display: inline-block;
-    background: #00c9ff;
-    color: #fff;
-    padding: 10px 25px;
-    border-radius: 25px;
+    padding: 12px 25px;
+    border: 1px solid #ff1e1e;
+    color: #ffffff;
     text-decoration: none;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(0, 201, 255, 0.4);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+    background: transparent;
 }
 
-/* Hero Image & Shape Background */
-.hero-image-container {
+.btn:hover {
+    background-color: #ff1e1e;
+    color: #fff;
+}
+
+.hero-image img, .about-image img {
     width: 100%;
-    position: relative;
+    max-width: 420px;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(255, 30, 30, 0.1);
+}
+
+/* --- About Section --- */
+.about-section {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    min-height: 280px;
+    padding: 40px 0;
+    gap: 40px;
 }
 
-.shape-bg {
-    position: absolute;
-    width: 300px;
-    height: 250px;
-    background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%);
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    z-index: 1;
+.about-content {
+    max-width: 550px;
 }
 
-.profile-img {
-    width: 200px;
-    position: relative;
-    z-index: 2;
-    border-radius: 20px;
+.about-tag {
+    color: #ff1e1e;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
-/* Social Icons Floating Box */
-.social-icons {
-    position: absolute;
-    bottom: -10px;
-    background: #fff;
-    padding: 8px 20px;
-    border-radius: 30px;
-    display: flex;
-    gap: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    z-index: 3;
+.about-content h2 {
+    font-size: 36px;
+    line-height: 1.2;
+    margin-bottom: 15px;
 }
 
-.social-icons a {
-    color: #555;
+.about-content h2 span {
+    color: #ff1e1e;
+}
+
+.sub-heading {
+    color: #ff1e1e;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.about-content p {
+    color: #888;
     font-size: 14px;
-    transition: 0.3s;
+    line-height: 1.7;
+    margin-bottom: 25px;
 }
 
-.social-icons a:hover {
-    color: #00c9ff;
-}
-
-/* Projects Section */
-.projects {
-    padding: 40px 5%;
-    background: #fff;
-}
-
+/* --- Services & Portfolio Styles --- */
 .section-title {
     text-align: center;
-    margin-bottom: 30px;
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #fff;
 }
 
 .section-title span {
-    color: #00c9ff;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
+    color: #ff1e1e;
 }
 
-.section-title h2 {
-    font-size: 26px;
-    color: #111;
-    margin-top: 5px;
-}
-
-.project-grid {
+.grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
-.project-card {
-    height: 160px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+.card {
+    background-color: #121212;
+    border: 1px solid #222;
+    padding: 30px;
+    border-radius: 8px;
+    transition: 0.3s;
 }
 
-.project-img-placeholder {
+.card:hover {
+    border-color: #ff1e1e;
+    transform: translateY(-5px);
+}
+
+.card i {
+    font-size: 36px;
+    color: #ff1e1e;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* --- Admin Panel Styles --- */
+.admin-panel {
+    background-color: #121212;
+    border: 1px solid #222;
+    padding: 40px;
+    border-radius: 8px;
+    max-width: 650px;
+    margin: 20px auto;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.admin-panel h2 {
+    color: #ff1e1e;
+    font-size: 24px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+.form-group input, .form-group textarea {
     width: 100%;
-    height: 100%;
+    padding: 12px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #ff1e1e;
+    outline: none;
+}
+
+/* --- Floating WhatsApp Button --- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #fff;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    z-index: 1000;
+    transition: transform 0.3s;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+/* --- Responsive Design for Mobile --- */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    nav ul {
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero, .about-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 0;
+        gap: 25px;
+    }
+
+    .hero-content, .about-content {
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .about-content h2 {
+        font-size: 28px;
+    }
+
+    .about-section {
+        flex-direction: column-reverse;
+    }
+
+    .admin-panel {
+        padding: 20px;
+        margin: 10px;
+    }
+}
+.upload-box {
+    border: 2px dashed #333;
+    padding: 15px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 13px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    gap: 10px;
+    transition: 0.3s;
 }
-
-/* PC / Laptop Screens ke liye Media Query */
-@media (min-width: 992px) {
-    header {
-        padding: 20px 8%;
-    }
-    .hero {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-        padding: 50px 8%;
-        min-height: 80vh;
-    }
-    .hero-content {
-        margin-top: 0;
-        flex: 1;
-    }
-    .hero-content p {
-        margin: 0 0 25px 0;
-    }
-    .hero-image-container {
-        flex: 1;
-        min-height: 350px;
-    }
-    .shape-bg {
-        width: 450px;
-        height: 350px;
-    }
-    .profile-img {
-        width: 260px;
-    }
-    .projects {
-        padding: 50px 8%;
-    }
+.upload-box:hover {
+    border-color: #ff1e1e;
+    color: #fff;
+}
+.upload-box i {
+    color: #ff1e1e;
+    font-size: 18px;
 }
